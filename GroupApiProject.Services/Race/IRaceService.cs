@@ -4,6 +4,8 @@ namespace GroupApiProject.Services.Race
 {
     public interface IRaceService
     {
-        Task<IEnumerable<RaceRequest>> GetAllRacesAsync();
+        Task<RaceDetail?> CreateRaceAsync(RaceCreate request);
+        Task<IEnumerable<RaceDetail>> GetAllRacesAsync();
+        Task<RaceDetail> GetRaceByIdAsync(int raceId);
     }
 }
