@@ -14,6 +14,19 @@ namespace GroupApiProject.WebApi.Controllers
             _raceService = raceService;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateRace([FromBody] RaceCreate request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+                
+            var response = await _raceService.CreateRaceAsync(request);
+            if (response is not null)
+                return Ok(response);
+
+            return BadRequest();
+        }
+
         [HttpGet("getall")]
         public async Task<IActionResult> GetAllRaces()
         {
@@ -24,7 +37,7 @@ namespace GroupApiProject.WebApi.Controllers
         [HttpGet("{raceId:int}")]
         public async Task<IActionResult> GetRaceById([FromRoute] int raceId)
         {
-            RaceRequest request = await _raceService.GetRaceByIdAsync(raceId);
+            RaceDetail request = await _raceService.GetRaceByIdAsync(raceId);
             return request is not null ? Ok(request) : NotFound();
         }
     }
