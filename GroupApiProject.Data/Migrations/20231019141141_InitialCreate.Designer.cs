@@ -424,19 +424,19 @@ namespace GroupApiProject.Data.Migrations
                     b.HasOne("GroupApiProject.Data.Entities.ClassEntity", "classId")
                         .WithMany()
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("GroupApiProject.Data.Entities.UserEntity", "userId")
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("GroupApiProject.Data.Entities.RaceEntity", "raceId")
                         .WithMany()
                         .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("classId");
@@ -451,13 +451,13 @@ namespace GroupApiProject.Data.Migrations
                     b.HasOne("GroupApiProject.Data.Entities.GearEntity", "armorId")
                         .WithMany()
                         .HasForeignKey("ArmorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("GroupApiProject.Data.Entities.GearEntity", "weaponId")
                         .WithMany()
                         .HasForeignKey("WeaponId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("armorId");
