@@ -7,9 +7,9 @@ public class CreateCharacter
 
     public int Type { get; set; }
 
-    public int? RaceId { get; set; }
+    public int RaceId { get; set; }
 
-    public int? ClassId { get; set; }
+    public int ClassId { get; set; }
 
     //initialize character stats
     //armor, strength, constitution, intelligence are calculated in methods on creation
@@ -25,5 +25,7 @@ public class CreateCharacter
     public int Xp = 0;
 
     public int Ap = 10;
+
+    public int OwnerId { get; set; }
 
 }

@@ -1,5 +1,7 @@
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
+using GroupApiProject.Services.Character;
+using GroupApiProject.Services.User;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,12 @@ builder.Services.AddDefaultIdentity<UserEntity>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
+
+
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
