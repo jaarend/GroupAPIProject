@@ -1,4 +1,5 @@
 using GroupApiProject.Data;
+using GroupApiProject.Data.Entities;
 using GroupApiProject.Models.Race;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,21 @@ namespace GroupApiProject.Services.Race
             }).ToListAsync();
 
             return races;
+        }
+
+        public async Task<RaceRequest?> GetRaceByIdAsync(int raceId)
+        {
+            RaceEntity? entity = await _dbcontext.Races.FirstOrDefaultAsync(e => e.Id == raceId);
+            return entity is null ? null : new RaceRequest
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Description = entity.Description,
+                StrengthModifier = entity.StrengthModifier,
+                ConstitutionModifier = entity.ConstitutionModifier,
+                IntelligenceModifier = entity.IntelligenceModifier,
+                DateCreated = entity.DateCreated
+            };
         }
     }
 }

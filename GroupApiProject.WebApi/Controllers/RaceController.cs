@@ -1,3 +1,4 @@
+using GroupApiProject.Models.Race;
 using GroupApiProject.Services.Race;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,18 @@ namespace GroupApiProject.WebApi.Controllers
             _raceService = raceService;
         }
 
-        [HttpGet]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAllRaces()
         {
             var races = await _raceService.GetAllRacesAsync();
-            return Ok(races);
+            return races is not null ? Ok(races) : NotFound();
+        }
+
+        [HttpGet("{raceId:int}")]
+        public async Task<IActionResult> GetRaceById([FromRoute] int raceId)
+        {
+            RaceRequest request = await _raceService.GetRaceByIdAsync(raceId);
+            return request is not null ? Ok(request) : NotFound();
         }
     }
 }
