@@ -1,6 +1,6 @@
 namespace GroupApiProject.Models.Race
 {
-    public class RaceRequest
+    public class RaceDetail
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
