@@ -1,6 +1,9 @@
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
 using GroupApiProject.Services.ClassServices;
+using GroupApiProject.Services.Character;
+using GroupApiProject.Services.User;
+using GroupApiProject.Services.Race;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,16 @@ builder.Services.AddDefaultIdentity<UserEntity>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<IClassService, ClassService>();
+//user service
+builder.Services.AddScoped<IUserService, UserService>();
+//character service
+builder.Services.AddScoped<ICharacterService, CharacterService>();
+//race service
+builder.Services.AddScoped<IRaceService, RaceService>();
+//gear service
+
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
