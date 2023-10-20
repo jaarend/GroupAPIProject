@@ -1,5 +1,6 @@
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
+using GroupApiProject.Services.Gear;
 using GroupApiProject.Services.Race;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ builder.Services.AddDefaultIdentity<UserEntity>(options =>
         //class service
         //gear service
 builder.Services.AddScoped<IRaceService, RaceService>();
+builder.Services.AddScoped<IGearService, GearService>();
         //user service
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
