@@ -1,7 +1,10 @@
+using System.Drawing;
+using System.Runtime.InteropServices;
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
 using GroupApiProject.Models.Character;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 
 namespace GroupApiProject.Services.Character;
@@ -83,7 +86,8 @@ public class CharacterService : ICharacterService
                 Level = entity.Level,
                 Hp = entity.Hp,
                 Xp = entity.Xp,
-                Ap = entity.Ap
+                Ap = entity.Ap,
+                OwnerId = entity.OwnerId
             })
             .ToListAsync();
 
@@ -110,6 +114,41 @@ public class CharacterService : ICharacterService
             Xp = entity.Xp,
             Ap = entity.Ap
         };
+    }
+
+    public async Task<bool> UpdateCharacterByIdAsync(EditCharacter request, int ownerId)
+    {
+        
+        //could use User context later to match _userId with ownerId
+        CharacterEntity? entity = await _dbContext.Characters
+            .FirstOrDefaultAsync(e =>
+                e.Id == request.Id && e.OwnerId == ownerId
+            );
+        
+        if(entity?.OwnerId != request.OwnerId)
+            return false;
+        
+        entity.Name = request.Name;
+        entity.Description = request.Description;
+        entity.Type = request.Type;
+        entity.ClassId = request.ClassId;
+
+        int numberOfChanges = await _dbContext.SaveChangesAsync();
+        
+        return numberOfChanges == 1;
+
+
+    }
+
+    public async Task<bool> DeleteCharacterAsync(int ownerId, int characterId)
+    {
+        var characterEntity = await _dbContext.Characters.FindAsync(characterId);
+
+        if(characterEntity?.OwnerId != ownerId)
+            return false;
+
+        _dbContext.Characters.Remove(characterEntity);
+        return await _dbContext.SaveChangesAsync() == 1;
     }
 
 }
