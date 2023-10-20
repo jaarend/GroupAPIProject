@@ -1,8 +1,11 @@
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
+using GroupApiProject.Services.Gear;
+
 using GroupApiProject.Services.ClassServices;
 using GroupApiProject.Services.Character;
 using GroupApiProject.Services.User;
+
 using GroupApiProject.Services.Race;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,10 +33,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICharacterService, CharacterService>();
 //race service
 builder.Services.AddScoped<IRaceService, RaceService>();
-//gear service
-
-
-
+builder.Services.AddScoped<IGearService, GearService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
