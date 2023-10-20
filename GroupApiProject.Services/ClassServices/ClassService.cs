@@ -87,8 +87,8 @@ namespace GroupApiProject.Services.ClassServices
         {
             ClassEntity? entity = await _context.Classes.FindAsync(request.Id);
 
-//            if (request.Id is null)
-//               return false;
+            if (entity == null!)
+            return false;
 
             entity.Name = request.Name;
             entity.Description = request.Description;
@@ -104,8 +104,8 @@ namespace GroupApiProject.Services.ClassServices
         public async Task<bool> DeleteClassAsync(int classId)
         {
             var classEntity = await _context.Classes.FindAsync(classId);
-//            if (ClassEntity?.OwnerId != _userId)
-//            return false;
+            if (classEntity == null)
+            return false;
 
             _context.Classes.Remove(classEntity);
             return await _context.SaveChangesAsync()==1;
