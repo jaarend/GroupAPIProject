@@ -75,5 +75,14 @@ namespace GroupApiProject.Services.Race
                 DateCreated = entity.DateCreated
             };
         }
+
+        public async Task<bool> DeleteRaceAsync(int raceId)
+        {
+            var raceEntity = await _dbcontext.Races.FindAsync(raceId);
+
+            _dbcontext.Races.Remove(raceEntity);
+
+            return await _dbcontext.SaveChangesAsync() == 1;
+        }
     }
 }

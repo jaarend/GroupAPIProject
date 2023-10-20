@@ -7,5 +7,6 @@ namespace GroupApiProject.Services.Race
         Task<RaceDetail?> CreateRaceAsync(RaceCreate request);
         Task<IEnumerable<RaceDetail>> GetAllRacesAsync();
         Task<RaceDetail> GetRaceByIdAsync(int raceId);
+        Task<bool> DeleteRaceAsync(int raceId);
     }
 }
