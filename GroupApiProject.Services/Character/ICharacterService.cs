@@ -12,5 +12,6 @@ namespace GroupApiProject.Services.Character
         Task<IEnumerable<ListCharacter>> GetAllCharactersAsync();
 
         Task<ListCharacter?> GetCharacterByIdAsync(int characterId, int ownerId);
+        Task<bool> UpdateCharacterByIdAsync(EditCharacter request, int ownerId);
     }
 }

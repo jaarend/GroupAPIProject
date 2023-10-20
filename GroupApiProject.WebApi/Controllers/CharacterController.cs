@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using GroupApiProject.Models.Character;
@@ -25,6 +26,13 @@ namespace GroupApiProject.WebApi.Controllers
             return Ok(characters);
         }
 
+        [HttpGet("/api/Character/{ownerId:int}/{characterId:int}")]
+        public async Task<IActionResult> GetCharacterById(int ownerId, int characterId)
+        {
+            var character = await _characterService.GetCharacterByIdAsync(characterId, ownerId);
+            return Ok(character);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCharacter ([FromBody] CreateCharacter model)
         {
@@ -40,6 +48,24 @@ namespace GroupApiProject.WebApi.Controllers
                 return Ok(TextResponse);
             }
 
+            return BadRequest();
+        }
+
+        [HttpPut("/api/Character/{ownerId:int}")]
+        public async Task<IActionResult> UpdateCharacterByIdAsync ([FromBody] EditCharacter model, int ownerId)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var registerResult = await _characterService.UpdateCharacterByIdAsync(model, ownerId);
+            if(registerResult == true)
+            {
+                var TextResponse = "Character has been updated!";
+                return Ok(TextResponse);
+            }
+            
             return BadRequest();
         }
     }
