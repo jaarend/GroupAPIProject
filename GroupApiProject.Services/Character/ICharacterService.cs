@@ -10,6 +10,7 @@ namespace GroupApiProject.Services.Character
     {
         Task<ListCharacter?> CreateCharacterAsync(CreateCharacter request);
         Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId);
+        Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId);
         Task<IEnumerable<ListCharacter>> GetAllCharactersAsync();
 
         Task<ListCharacter?> GetCharacterByIdAsync(int characterId, int ownerId);

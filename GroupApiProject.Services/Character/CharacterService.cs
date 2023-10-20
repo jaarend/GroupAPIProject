@@ -108,6 +108,39 @@ public class CharacterService : ICharacterService
         return numberOfChanges == 1;
 
     }
+    public async Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId)
+    {
+        var classDetail = await _dbContext.Classes.FindAsync(classId);
+
+        if (classDetail is null)
+        {
+            return false;
+        }
+
+        CharacterEntity? entity = await _dbContext.Characters
+            .FirstOrDefaultAsync(e =>
+                e.Id == characterId && e.ClassId == classId
+            );
+
+        if (entity?.ClassId != classId)
+            return false;
+
+        //now I want to grab the gear type and value out of gear to calculate armor
+        var gearId = classDetail.ArmorId;
+        var gearDetail = await _dbContext.Gear.FindAsync(gearId);
+
+        var armorMod = gearDetail.Value;
+
+        // create if to determine what type of gear it is and apply to Armor if it is
+
+        entity.Armor += armorMod;
+        
+
+        int numberOfChanges = await _dbContext.SaveChangesAsync();
+
+        return numberOfChanges == 1;
+
+    }
 
 
     public async Task<IEnumerable<ListCharacter>> GetAllCharactersAsync()
@@ -123,6 +156,7 @@ public class CharacterService : ICharacterService
                 RaceId = entity.RaceId,
                 ClassId = entity.ClassId,
                 Level = entity.Level,
+                Armor = entity.Armor,
                 Strength = entity.Strength,
                 Constitution = entity.Constitution,
                 Intelligence = entity.Intelligence,
@@ -152,6 +186,7 @@ public class CharacterService : ICharacterService
             RaceId = entity.RaceId,
             ClassId = entity.ClassId,
             Level = entity.Level,
+            Armor = entity.Armor,
             Strength = entity.Strength,
             Constitution = entity.Constitution,
             Intelligence = entity.Intelligence,

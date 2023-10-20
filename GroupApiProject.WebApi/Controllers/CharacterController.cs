@@ -80,10 +80,20 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpPut("/api/UpdateCharacterRace/{characterId:int}/{ownerId:int}")]
+        [HttpPut("/api/UpdateCharacterRace/{characterId:int}/{raceId:int}")]
         public async Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId)
         {
             var registerFinalResult = await _characterService.UpdateRaceStatsOfNewCharacter(characterId, raceId);
+            if(registerFinalResult == true)
+            {
+                return true;
+            }
+            return false;
+        }
+        [HttpPut("/api/UpdateCharacterArmor/{characterId:int}/{classId:int}")]
+        public async Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId)
+        {
+            var registerFinalResult = await _characterService.UpdateArmorStatsOfNewCharacter(characterId, classId);
             if(registerFinalResult == true)
             {
                 return true;
