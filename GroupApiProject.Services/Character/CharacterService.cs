@@ -84,7 +84,8 @@ public class CharacterService : ICharacterService
                 Level = entity.Level,
                 Hp = entity.Hp,
                 Xp = entity.Xp,
-                Ap = entity.Ap
+                Ap = entity.Ap,
+                OwnerId = entity.OwnerId
             })
             .ToListAsync();
 
