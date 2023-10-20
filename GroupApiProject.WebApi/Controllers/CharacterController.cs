@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using GroupApiProject.Models.Character;
+using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.Character;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,14 +42,24 @@ namespace GroupApiProject.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var registerResult = await _characterService.CreateCharacterAsync(model);
-            if(registerResult is not null)
+            var registerCreateResult = await _characterService.CreateCharacterAsync(model);
+
+            if(registerCreateResult is null)
+            {
+                return BadRequest(new TextResponse("Could not initizalize character."));
+            }
+
+            //else continue to grab raceId, then apply race modifiers to new character
+            // var raceId = model.RaceId;
+            // var registerFinalResult = await _characterService.UpdateRaceStatsOfNewCharacter(registerCreateResult, raceId);
+            //if(registerFinalResult)
+            if(registerCreateResult is not null)
             {
                 var TextResponse = "Character is created!";
                 return Ok(TextResponse);
             }
 
-            return BadRequest();
+            return BadRequest(new TextResponse("Unable to create Character."));
         }
 
         [HttpPut("/api/Character/{ownerId:int}")]
@@ -67,6 +78,17 @@ namespace GroupApiProject.WebApi.Controllers
             }
             
             return BadRequest();
+        }
+
+        [HttpPut("/api/UpdateCharacterRace/{characterId:int}/{ownerId:int}")]
+        public async Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId)
+        {
+            var registerFinalResult = await _characterService.UpdateRaceStatsOfNewCharacter(characterId, raceId);
+            if(registerFinalResult == true)
+            {
+                return true;
+            }
+            return false;
         }
 
         [HttpDelete("/api/Character/{ownerId:int}/{characterId:int}")]

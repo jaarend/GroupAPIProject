@@ -17,13 +17,13 @@ public class CharacterService : ICharacterService
     public CharacterService(UserManager<UserEntity> userManager,
                             SignInManager<UserEntity> signInManager,
                             ApplicationDbContext dbContext)
-            {
-                // var currentUser = signInManager.Context.User;
-                // var userIdClaim = userManager.GetUserId(currentUser);
-                // var hasValidClaim = int.TryParse(userIdClaim, out _userId);
-                
-                _dbContext = dbContext;
-            }
+    {
+        // var currentUser = signInManager.Context.User;
+        // var userIdClaim = userManager.GetUserId(currentUser);
+        // var hasValidClaim = int.TryParse(userIdClaim, out _userId);
+
+        _dbContext = dbContext;
+    }
 
     public async Task<ListCharacter?> CreateCharacterAsync(CreateCharacter request)
     {
@@ -44,9 +44,17 @@ public class CharacterService : ICharacterService
             DateCreated = DateTime.Now
         };
 
+
+
         //update the stats of character based on selected Race and Class
+        //find the race by Id, then put the modifier values into the character
 
+        // var raceId = entity.RaceId;
+        // var raceDetail = await _dbContext.Races.FindAsync(raceId);
 
+        // entity.Strength = entity.Strength + raceDetail.StrengthModifier;
+        // entity.Constitution = entity.Constitution + raceDetail.ConstitutionModifier;
+        // entity.Intelligence = entity.Intelligence + raceDetail.IntelligenceModifier;
 
         //return response if successful
         _dbContext.Characters.Add(entity);
@@ -62,12 +70,43 @@ public class CharacterService : ICharacterService
             RaceId = entity.RaceId,
             ClassId = entity.ClassId,
             Level = entity.Level,
+            Armor = entity.Armor,
+            Strength = entity.Strength,
+            Constitution = entity.Constitution,
+            Intelligence = entity.Intelligence,
             Hp = entity.Hp,
             Xp = entity.Xp,
             Ap = entity.Ap,
 
         };
         return response;
+    }
+
+    public async Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId)
+    {
+        var raceDetail = await _dbContext.Races.FindAsync(raceId);
+
+        if (raceDetail is null)
+        {
+            return false;
+        }
+
+        CharacterEntity? entity = await _dbContext.Characters
+            .FirstOrDefaultAsync(e =>
+                e.Id == characterId && e.RaceId == raceId
+            );
+
+        if (entity?.RaceId != raceId)
+            return false;
+
+        entity.Strength += raceDetail.StrengthModifier;
+        entity.Constitution += raceDetail.ConstitutionModifier;
+        entity.Intelligence += raceDetail.IntelligenceModifier;
+
+        int numberOfChanges = await _dbContext.SaveChangesAsync();
+
+        return numberOfChanges == 1;
+
     }
 
 
@@ -84,6 +123,9 @@ public class CharacterService : ICharacterService
                 RaceId = entity.RaceId,
                 ClassId = entity.ClassId,
                 Level = entity.Level,
+                Strength = entity.Strength,
+                Constitution = entity.Constitution,
+                Intelligence = entity.Intelligence,
                 Hp = entity.Hp,
                 Xp = entity.Xp,
                 Ap = entity.Ap,
@@ -110,6 +152,9 @@ public class CharacterService : ICharacterService
             RaceId = entity.RaceId,
             ClassId = entity.ClassId,
             Level = entity.Level,
+            Strength = entity.Strength,
+            Constitution = entity.Constitution,
+            Intelligence = entity.Intelligence,
             Hp = entity.Hp,
             Xp = entity.Xp,
             Ap = entity.Ap
@@ -118,23 +163,23 @@ public class CharacterService : ICharacterService
 
     public async Task<bool> UpdateCharacterByIdAsync(EditCharacter request, int ownerId)
     {
-        
+
         //could use User context later to match _userId with ownerId
         CharacterEntity? entity = await _dbContext.Characters
             .FirstOrDefaultAsync(e =>
                 e.Id == request.Id && e.OwnerId == ownerId
             );
-        
-        if(entity?.OwnerId != request.OwnerId)
+
+        if (entity?.OwnerId != request.OwnerId)
             return false;
-        
+
         entity.Name = request.Name;
         entity.Description = request.Description;
         entity.Type = request.Type;
         entity.ClassId = request.ClassId;
 
         int numberOfChanges = await _dbContext.SaveChangesAsync();
-        
+
         return numberOfChanges == 1;
 
 
@@ -144,7 +189,7 @@ public class CharacterService : ICharacterService
     {
         var characterEntity = await _dbContext.Characters.FindAsync(characterId);
 
-        if(characterEntity?.OwnerId != ownerId)
+        if (characterEntity?.OwnerId != ownerId)
             return false;
 
         _dbContext.Characters.Remove(characterEntity);
