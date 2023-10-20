@@ -68,5 +68,13 @@ namespace GroupApiProject.WebApi.Controllers
             
             return BadRequest();
         }
+
+        [HttpDelete("/api/Character/{ownerId:int}/{characterId:int}")]
+        public async Task<IActionResult> DeleteCharacterAsync(int ownerId, int characterId)
+        {
+            return await _characterService.DeleteCharacterAsync(ownerId,characterId)
+                ? Ok($"Character {characterId} was deleted successfully.")
+                : BadRequest($"Note {characterId} was not deleted.");
+        }
     }
 }

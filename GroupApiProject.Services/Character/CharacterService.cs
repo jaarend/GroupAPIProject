@@ -1,3 +1,5 @@
+using System.Drawing;
+using System.Runtime.InteropServices;
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
 using GroupApiProject.Models.Character;
@@ -136,6 +138,17 @@ public class CharacterService : ICharacterService
         return numberOfChanges == 1;
 
 
+    }
+
+    public async Task<bool> DeleteCharacterAsync(int ownerId, int characterId)
+    {
+        var characterEntity = await _dbContext.Characters.FindAsync(characterId);
+
+        if(characterEntity?.OwnerId != ownerId)
+            return false;
+
+        _dbContext.Characters.Remove(characterEntity);
+        return await _dbContext.SaveChangesAsync() == 1;
     }
 
 }
