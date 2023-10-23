@@ -10,9 +10,7 @@ public class UserService : IUserService
 {
 
     private readonly ApplicationDbContext _context;
-
     private readonly UserManager<UserEntity> _userManager;
-
     private readonly SignInManager<UserEntity> _signManager;
 
     public UserService(ApplicationDbContext context,
@@ -38,6 +36,24 @@ public class UserService : IUserService
         IdentityResult registerResult = await _userManager.CreateAsync(entity, model.Password);
 
         return registerResult.Succeeded;
+    }
+
+    public async Task<UserDetail?> GetUserByIdAsync(int userId)
+    {
+        UserEntity? entity = await _context.Users.FindAsync(userId);
+        if (entity is null)
+            return null;
+
+        UserDetail detail = new()
+        {
+            Id = entity.Id,
+            Email = entity.Email!,
+            UserName = entity.UserName!,
+            FirstName = entity.FirstName!,
+            LastName = entity.LastName,
+            DateCreated = entity.DateCreated
+        };
+        return detail;
     }
 
 }

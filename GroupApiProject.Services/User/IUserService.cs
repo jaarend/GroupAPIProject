@@ -9,5 +9,6 @@ namespace GroupApiProject.Services.User
     public interface IUserService
     {
         Task<bool> RegisterUserAsync(RegisterUser model);
+        Task<UserDetail?> GetUserByIdAsync(int userId);
     }
 }

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using GroupApiProject.Models.Responses;
+using GroupApiProject.Models.Token;
 using GroupApiProject.Models.User;
+using GroupApiProject.Services.Token;
 using GroupApiProject.Services.User;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -17,10 +22,15 @@ namespace GroupApiProject.WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        
-        public UserController(IUserService userService)
+
+        private readonly ITokenService _tokenService;
+
+        public UserController(IUserService userService
+        , ITokenService tokenService
+        )
         {
             _userService = userService;
+            _tokenService = tokenService;
         }
 
         [HttpPost]
@@ -39,6 +49,34 @@ namespace GroupApiProject.WebApi.Controllers
             }
 
             return BadRequest();
+        }
+
+        // added for tokens
+        [Authorize, HttpGet("{userId:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int userId)
+        {
+            var userDetail = await _userService.GetUserByIdAsync(userId);
+
+            if (userDetail is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userDetail);
+        }
+
+        [HttpPost("~/api/Token")]
+        public async Task<IActionResult> GetToken([FromBody] TokenRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            TokenResponse? response = await _tokenService.GetTokenAsync(request);
+
+            if (response is null)
+                return BadRequest(new TextResponse("Invalid username or password."));
+
+            return Ok(response);
         }
     }
 }
