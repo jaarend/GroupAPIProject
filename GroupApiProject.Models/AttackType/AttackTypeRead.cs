@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GroupApiProject.Models.Class
+namespace GroupApiProject.Models.AttackType
 {
-    public class ClassDetail
+    public class AttackTypeRead
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string? Name { get; set; }
         public string? Description { get; set; }
-        public DateTimeOffset CreatedUtc { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }
