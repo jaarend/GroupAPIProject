@@ -12,8 +12,10 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, IdentityRole<i
         : base(options) { }
 
     public DbSet<CharacterEntity> Characters {get; set;} = null!;
+    public DbSet<CharacterTypeEntity> CharacterTypes {get; set;} = null!;
     public DbSet<ClassEntity> Classes {get; set;} = null!;
     public DbSet<GearEntity> Gear {get; set;} = null!;
+    public DbSet<GearTypeEntity> GearTypes {get; set;} = null!;
     public DbSet<RaceEntity> Races {get; set;} = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
