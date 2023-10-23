@@ -1,8 +1,10 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Xml.Serialization;
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
 using GroupApiProject.Models.Character;
+using GroupApiProject.Models.Gear;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
@@ -231,4 +233,137 @@ public class CharacterService : ICharacterService
         return await _dbContext.SaveChangesAsync() == 1;
     }
 
+
+    #region UI/Console Logic
+    //!Note this probably needs to go into a separate ProgramUI file
+    /*
+    public void FightMode(AttackCharacter player, AttackCharacter target) //this would get selected in the UI
+    {
+        Console.WriteLine("Select your Fighter!");
+        Console.WriteLine(GetAllCharactersAsync()); //might want this to call the current userId
+        PressAnyKey();
+        var playerId = Console.ReadLine();
+
+        Console.WriteLine("Select your Opponent!");
+        Console.WriteLine(GetAllCharactersAsync()); //want this to grab all characters besides the player character (could be other characters owned by the player)
+        PressAnyKey();
+        var targetId = Console.ReadLine();
+        
+
+
+        //* while loop to check if the fight is over?
+        var fightCheck = true;
+
+        while (fightCheck)
+        {
+            var fightCheck = Fight(player, target);
+        
+        }
+
+    }
+
+    //* might need to create a "fight" method that puts the game into fight state which ends when the player wins or dies.
+    //* do while loop that checks if the player or target is alive
+    public bool Fight(AttackCharacter player, AttackCharacter target)
+    {
+        //* player selects their character and the target character
+        Console.WriteLine("Select your character by Id: ");
+        var selectedPlayerId = Console.ReadLine();
+        Console.WriteLine("Select the character you want to fight by Id: ");
+        var targetPlayerId = Console.ReadLine();
+        player = GetCharacterByIdAsync(selectedPlayerId, _userId); //_userId will be used when sign in is complete
+        target = GetCharacterByIdAsync(targetPlayerId,) //might have to create a new method that just uses character Id, not ownerId
+
+        var wonFight = false; //check if the player defeated the target
+        var runAway = false; //have a check if the player runs away
+        while (CheckIfDead(player) || runAway || wonFight) //checks if the player is alive, runs away, or if the player defeated the target
+        {
+            
+            Console.Write("Would you like to do?\n" +
+                            "1. Attack"+
+                            "2. Run Away");
+            string userInput = Console.ReadLine()!;
+            switch (userInput)
+            {
+                case "1":
+                    Attack(player, target);
+                break;
+
+                case "2":
+                    runAway = RunAway();
+                break;
+                
+                default:
+                    Console.WriteLine("Invalid Selection.");
+                    break;
+            }
+        }
+    }
+
+*/ 
+//!Note above probably needs to go into a separate ProgramUI file
+
+//* Below here are helper methods that could be called into the ProgramUI
+
+    public void Attack(AttackCharacter player, AttackCharacter target)
+    {
+        int damage = CalculateDamage(player);
+        target.Hp = target.Hp - (damage - target.Armor/2); //could play around with how armor affects damage taken
+
+        Console.WriteLine($"{player.Name} attacks {target.Name} for {damage} damage. Your HP: {player.Hp}, Enemy HP: {target.Hp}");
+        PressAnyKey();
+
+    }
+
+    public bool RunAway()
+    {
+        Console.WriteLine("You ran away!");
+        PressAnyKey();
+        return true;
+    }
+
+    private int CalculateDamage(AttackCharacter player)
+    {
+        // logic for calculating how strong an attack is
+        var classId = player.ClassId;
+        var classDetail = _dbContext.Classes.Find(classId);
+
+        var gearId = classDetail.WeaponId; //get the weapon id
+
+        var gearDetail = _dbContext.Gear.Find(gearId);
+        var weaponMod = gearDetail.Value; // get value
+
+        // create if to determine what type of gear it is and apply to Armor if it is
+        //switch statement to determine attack?
+
+        var AttackPower = player.Strength + weaponMod;
+        return AttackPower;
+    }
+
+    public void TakeDamage(AttackCharacter character, int damage)
+    {
+        
+    }
+
+    public bool CheckIfDead(AttackCharacter character)
+    {
+        if(character.Hp > 0)
+        {
+            return false;
+        }
+        else
+            return true;
+        
+    }
+
+    public void PressAnyKey()
+    {
+        Console.WriteLine("Press any key to continue.");
+        Console.ReadKey();
+        Console.Clear();
+    }
+    #endregion
+
+
+    
 }
