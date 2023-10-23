@@ -9,7 +9,7 @@ namespace GroupApiProject.Services.ClassServices
 {
     public interface IClassService
     {
-        Task<ClassListItem?> CreateClassAsync(ClassCreate reqeust);
+        Task<ClassListItem?> CreateClassAsync(ClassCreate request);
         Task<IEnumerable<ClassListItem>> GetAllClassesAsync();
         Task<ClassDetail?> GetClassByIdAsync(int classId);
         Task<bool> UpdateClassAsync(ClassUpdate request);
