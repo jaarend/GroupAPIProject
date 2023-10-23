@@ -20,10 +20,6 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, IdentityRole<i
     public DbSet<AttackEntity> Attacks {get; set;} = null!;
     public DbSet<AttackTypeEntity> AttackTypes {get; set;} = null!;
     public DbSet<UserTypesEntity> UserTypes { get; set; } = null!;
-            //characterTypes
-            //attacks
-            //gearTypes
-            //attackTypes
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
