@@ -14,23 +14,24 @@ namespace GroupApiProject.Services.Character;
 public class CharacterService : ICharacterService
 {
     private readonly ApplicationDbContext _dbContext;
-    // private readonly int _userId; //can add this when we want tokens
+    private readonly int _userId;
 
     public CharacterService(UserManager<UserEntity> userManager,
                             SignInManager<UserEntity> signInManager,
                             ApplicationDbContext dbContext)
     {
-        // var currentUser = signInManager.Context.User;
-        // var userIdClaim = userManager.GetUserId(currentUser);
-        // var hasValidClaim = int.TryParse(userIdClaim, out _userId);
+        var currentUser = signInManager.Context.User;
+        var userIdClaim = userManager.GetUserId(currentUser);
+        var hasValidClaim = int.TryParse(userIdClaim, out _userId);
+
+        if(hasValidClaim == false)
+            throw new Exception("Attempted to build character without an account Id");
 
         _dbContext = dbContext;
     }
 
     public async Task<ListCharacter?> CreateCharacterAsync(CreateCharacter request)
     {
-        // var userId = _userId;
-        //create the new entity
         CharacterEntity entity = new()
         {
             Name = request.Name,
@@ -42,7 +43,7 @@ public class CharacterService : ICharacterService
             Hp = request.Hp,
             Xp = request.Xp,
             Ap = request.Ap,
-            OwnerId = request.OwnerId,
+            OwnerId = _userId,
             DateCreated = DateTime.Now
         };
 

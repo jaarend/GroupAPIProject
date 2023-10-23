@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GroupApiProject.Models.Character;
 using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.Character;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroupApiProject.WebApi.Controllers
@@ -34,6 +35,7 @@ namespace GroupApiProject.WebApi.Controllers
             return Ok(character);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCharacter ([FromBody] CreateCharacter model)
         {
@@ -62,6 +64,7 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest(new TextResponse("Unable to create Character."));
         }
 
+        [Authorize]
         [HttpPut("/api/Character/{ownerId:int}")]
         public async Task<IActionResult> UpdateCharacterByIdAsync ([FromBody] EditCharacter model, int ownerId)
         {
@@ -80,6 +83,7 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpPut("/api/UpdateCharacterRace/{characterId:int}/{raceId:int}")]
         public async Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId)
         {
@@ -90,6 +94,8 @@ namespace GroupApiProject.WebApi.Controllers
             }
             return false;
         }
+
+        [Authorize]
         [HttpPut("/api/UpdateCharacterArmor/{characterId:int}/{classId:int}")]
         public async Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId)
         {
@@ -101,6 +107,7 @@ namespace GroupApiProject.WebApi.Controllers
             return false;
         }
 
+        [Authorize]
         [HttpDelete("/api/Character/{ownerId:int}/{characterId:int}")]
         public async Task<IActionResult> DeleteCharacterAsync(int ownerId, int characterId)
         {
