@@ -15,6 +15,8 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, IdentityRole<i
     public DbSet<ClassEntity> Classes {get; set;} = null!;
     public DbSet<GearEntity> Gear {get; set;} = null!;
     public DbSet<RaceEntity> Races {get; set;} = null!;
+    public DbSet<AttackEntity> Attacks {get; set;} = null!;
+    public DbSet<AttackTypeEntity> AttackTypes {get; set;} = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
