@@ -8,7 +8,7 @@ namespace GroupApiProject.Models.Class
     public class ClassRead
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = null!;
         public string? Description { get; set; }
         public int WeaponId { get; set; }
         public int ArmorId { get; set; }

@@ -15,7 +15,7 @@ namespace GroupApiProject.Models.Class
     public string Name { get; set; } = null!;
     [Required]
     [MinLength(1, ErrorMessage ="{0} must be at least {1} character long."), MaxLength(1000, ErrorMessage ="{0} must contain no more than {1} characters.")]
-    public string Description { get; set; } = null!;
+    public string? Description { get; set; }
     public int AttackSlot_1 { get; set; }
     public int AttackSlot_2 { get; set; }
     public int WeaponId { get; set; }

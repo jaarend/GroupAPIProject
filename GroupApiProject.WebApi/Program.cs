@@ -1,5 +1,6 @@
 using GroupApiProject.Data;
 using GroupApiProject.Data.Entities;
+using GroupApiProject.Services.Gear;
 using GroupApiProject.Services.ClassServices;
 using GroupApiProject.Services.Character;
 using GroupApiProject.Services.User;
@@ -36,6 +37,7 @@ builder.Services.AddScoped<ICharacterService, CharacterService>();
 //race service
 builder.Services.AddScoped<IRaceService, RaceService>();
 //gear service
+builder.Services.AddScoped<IGearService, GearService>();
 
 // adding for token authentication
 builder.Services.AddScoped<ITokenService, TokenService>();
