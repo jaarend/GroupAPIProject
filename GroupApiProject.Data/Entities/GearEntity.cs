@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GroupApiProject.Data.Entities;
 
@@ -15,8 +16,9 @@ public class GearEntity
     public string? Description { get; set; }
 
     [Required]
+    [ForeignKey(nameof(typeId))]
     public int Type { get; set; } // 1 is weapon 2 is armor
-
+    public GearTypeEntity? typeId { get; set; }
     [Required]
     public int Value { get; set; } //modifier for attack/armor calculation
 

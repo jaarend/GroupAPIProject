@@ -14,7 +14,10 @@ public class CharacterEntity
 
     [MinLength(1), MaxLength(1000)]
     public string? Description { get; set; }
+
+    [ForeignKey(nameof(typeId))]
     public int Type { get; set; }
+    public CharacterTypeEntity? typeId { get; set; }
 
     [ForeignKey(nameof(raceId))]
     public int RaceId { get; set; }

@@ -37,12 +37,24 @@ namespace GroupApiProject.WebApi.Controllers
         [HttpGet("get/{raceId:int}")]
         public async Task<IActionResult> GetRaceById([FromRoute] int raceId)
         {
-            RaceDetail request = await _raceService.GetRaceByIdAsync(raceId);
+            RaceDetail? request = await _raceService.GetRaceByIdAsync(raceId);
             return request is not null ? Ok(request) : NotFound();
         }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateRaceById([FromBody] RaceUpdate request)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _raceService.UpdateRaceAsync(request)
+                    ? Ok("Race updated successfully.")
+                    : BadRequest("Race could not be updated.");
+            }
+            return BadRequest(ModelState);
+        }
+
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteRace([FromBody] int raceId)
+        public async Task<IActionResult> DeleteRace([FromBody] RaceDelete raceId)
         {
             return await _raceService.DeleteRaceAsync(raceId)
                 ? Ok($"Race Id: {raceId} was deleted successfully.")
