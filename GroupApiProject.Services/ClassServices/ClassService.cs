@@ -80,7 +80,7 @@ namespace GroupApiProject.Services.ClassServices
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                CreatedUtc = entity.DateCreated,
+                DateCreated = entity.DateCreated,
             };
         }
         public async Task<bool> UpdateClassAsync(ClassUpdate request)
