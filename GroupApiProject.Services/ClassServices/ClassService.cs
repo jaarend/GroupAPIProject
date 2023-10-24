@@ -28,7 +28,8 @@ namespace GroupApiProject.Services.ClassServices
             AttackSlot_1 = request.AttackSlot_1,
             AttackSlot_2 = request.AttackSlot_2,
             WeaponId = request.WeaponId,
-            ArmorId = request.ArmorId
+            ArmorId = request.ArmorId,
+            DateCreated = DateTime.Now
         };
 
         _context.Classes.Add(entity);
@@ -80,7 +81,7 @@ namespace GroupApiProject.Services.ClassServices
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                CreatedUtc = entity.DateCreated,
+                DateCreated = entity.DateCreated,
             };
         }
         public async Task<bool> UpdateClassAsync(ClassUpdate request)
