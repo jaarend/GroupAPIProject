@@ -28,7 +28,8 @@ namespace GroupApiProject.Services.ClassServices
             AttackSlot_1 = request.AttackSlot_1,
             AttackSlot_2 = request.AttackSlot_2,
             WeaponId = request.WeaponId,
-            ArmorId = request.ArmorId
+            ArmorId = request.ArmorId,
+            DateCreated = DateTime.Now
         };
 
         _context.Classes.Add(entity);
