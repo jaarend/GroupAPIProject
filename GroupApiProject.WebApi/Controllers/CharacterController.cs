@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GroupApiProject.Models.Character;
 using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.Character;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroupApiProject.WebApi.Controllers
@@ -30,10 +31,11 @@ namespace GroupApiProject.WebApi.Controllers
         [HttpGet("/api/Character/{ownerId:int}/{characterId:int}")]
         public async Task<IActionResult> GetCharacterById(int ownerId, int characterId)
         {
-            var character = await _characterService.GetCharacterByIdAsync(characterId, ownerId);
+            var character = await _characterService.GetCharacterByIdAsync(characterId);
             return Ok(character);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCharacter ([FromBody] CreateCharacter model)
         {
@@ -62,15 +64,16 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest(new TextResponse("Unable to create Character."));
         }
 
-        [HttpPut("/api/Character/{ownerId:int}")]
-        public async Task<IActionResult> UpdateCharacterByIdAsync ([FromBody] EditCharacter model, int ownerId)
+        [Authorize]
+        [HttpPut("/api/Character/")]
+        public async Task<IActionResult> UpdateCharacterByIdAsync ([FromBody] EditCharacter model)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var registerResult = await _characterService.UpdateCharacterByIdAsync(model, ownerId);
+            var registerResult = await _characterService.UpdateCharacterByIdAsync(model);
             if(registerResult == true)
             {
                 var TextResponse = "Character has been updated!";
@@ -80,6 +83,7 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpPut("/api/UpdateCharacterRace/{characterId:int}/{raceId:int}")]
         public async Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId)
         {
@@ -90,6 +94,8 @@ namespace GroupApiProject.WebApi.Controllers
             }
             return false;
         }
+
+        [Authorize]
         [HttpPut("/api/UpdateCharacterArmor/{characterId:int}/{classId:int}")]
         public async Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId)
         {
@@ -101,10 +107,11 @@ namespace GroupApiProject.WebApi.Controllers
             return false;
         }
 
-        [HttpDelete("/api/Character/{ownerId:int}/{characterId:int}")]
-        public async Task<IActionResult> DeleteCharacterAsync(int ownerId, int characterId)
+        [Authorize]
+        [HttpDelete("/api/Character/{characterId:int}")]
+        public async Task<IActionResult> DeleteCharacterAsync(int characterId)
         {
-            return await _characterService.DeleteCharacterAsync(ownerId,characterId)
+            return await _characterService.DeleteCharacterAsync(characterId)
                 ? Ok($"Character {characterId} was deleted successfully.")
                 : BadRequest($"Note {characterId} was not deleted.");
         }

@@ -30,6 +30,7 @@ public class UserService : IUserService
             LastName = model.LastName,
             Email = model.Email,
             UserName = model.UserName,
+            UserRole = model.UserRole,
             DateCreated = DateTime.Now
         };
 

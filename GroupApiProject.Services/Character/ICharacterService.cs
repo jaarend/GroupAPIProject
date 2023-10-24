@@ -13,8 +13,8 @@ namespace GroupApiProject.Services.Character
         Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId);
         Task<IEnumerable<ListCharacter>> GetAllCharactersAsync();
 
-        Task<ListCharacter?> GetCharacterByIdAsync(int characterId, int ownerId);
-        Task<bool> UpdateCharacterByIdAsync(EditCharacter request, int ownerId);
-        Task<bool> DeleteCharacterAsync(int ownerId, int characterId);
+        Task<ListCharacter?> GetCharacterByIdAsync(int characterId);
+        Task<bool> UpdateCharacterByIdAsync(EditCharacter request);
+        Task<bool> DeleteCharacterAsync(int characterId);
     }
 }
