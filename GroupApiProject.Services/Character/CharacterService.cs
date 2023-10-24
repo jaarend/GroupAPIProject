@@ -32,6 +32,20 @@ public class CharacterService : ICharacterService
 
     public async Task<ListCharacter?> CreateCharacterAsync(CreateCharacter request)
     {
+        //grabs RaceId to input modifier into the entity
+        var raceId = request.RaceId;
+        var raceDetail = await _dbContext.Races.FindAsync(raceId);
+
+        //get ArmorId
+        var classId = request.ClassId;
+        var classDetail = await _dbContext.Classes.FindAsync(classId);
+        //get Gear Value
+        var gearId = classDetail.ArmorId;
+        var gearDetail = await _dbContext.Gear.FindAsync(gearId);
+
+        var armorMod = gearDetail.Value;
+
+        
         CharacterEntity entity = new()
         {
             Name = request.Name,
@@ -40,6 +54,10 @@ public class CharacterService : ICharacterService
             RaceId = request.RaceId,
             ClassId = request.ClassId,
             Level = request.Level,
+            Armor = request.Armor + armorMod,
+            Strength = request.Strength + raceDetail.StrengthModifier,
+            Constitution = request.Constitution + raceDetail.ConstitutionModifier,
+            Intelligence = request.Intelligence + raceDetail.IntelligenceModifier,
             Hp = request.Hp,
             Xp = request.Xp,
             Ap = request.Ap,
@@ -48,18 +66,6 @@ public class CharacterService : ICharacterService
         };
 
 
-
-        //update the stats of character based on selected Race and Class
-        //find the race by Id, then put the modifier values into the character
-
-        // var raceId = entity.RaceId;
-        // var raceDetail = await _dbContext.Races.FindAsync(raceId);
-
-        // entity.Strength = entity.Strength + raceDetail.StrengthModifier;
-        // entity.Constitution = entity.Constitution + raceDetail.ConstitutionModifier;
-        // entity.Intelligence = entity.Intelligence + raceDetail.IntelligenceModifier;
-
-        //return response if successful
         _dbContext.Characters.Add(entity);
         var numberOfChanges = await _dbContext.SaveChangesAsync();
 

@@ -51,10 +51,6 @@ namespace GroupApiProject.WebApi.Controllers
                 return BadRequest(new TextResponse("Could not initizalize character."));
             }
 
-            //else continue to grab raceId, then apply race modifiers to new character
-            // var raceId = model.RaceId;
-            // var registerFinalResult = await _characterService.UpdateRaceStatsOfNewCharacter(registerCreateResult, raceId);
-            //if(registerFinalResult)
             if(registerCreateResult is not null)
             {
                 var TextResponse = "Character is created!";
