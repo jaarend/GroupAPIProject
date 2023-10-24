@@ -20,6 +20,8 @@ public class RegisterUser
     [MinLength(4)]
     public string UserName { get; set; } = string.Empty;
 
+    public int UserRole {get; set;}
+
     [Required]
     [MinLength(4)]
     public string Password { get; set; } = string.Empty;

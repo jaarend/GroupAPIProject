@@ -149,7 +149,7 @@ public class CharacterService : ICharacterService
     public async Task<IEnumerable<ListCharacter>> GetAllCharactersAsync()
     {
         List<ListCharacter> characters = await _dbContext.Characters
-            // .Where(entity => entity.OwnerId == _userId) this can be added to specific logged in user
+            .Where(entity => entity.OwnerId == _userId)
             .Select(entity => new ListCharacter
             {
                 Id = entity.Id,
@@ -166,18 +166,18 @@ public class CharacterService : ICharacterService
                 Hp = entity.Hp,
                 Xp = entity.Xp,
                 Ap = entity.Ap,
-                OwnerId = entity.OwnerId
+                OwnerId = _userId
             })
             .ToListAsync();
 
         return characters;
     }
 
-    public async Task<ListCharacter?> GetCharacterByIdAsync(int characterId, int ownerId)
+    public async Task<ListCharacter?> GetCharacterByIdAsync(int characterId)
     {
         CharacterEntity? entity = await _dbContext.Characters
             .FirstOrDefaultAsync(e =>
-                e.Id == characterId && e.OwnerId == ownerId
+                e.Id == characterId && e.OwnerId == _userId
             );
 
         return entity is null ? null : new ListCharacter
@@ -199,13 +199,13 @@ public class CharacterService : ICharacterService
         };
     }
 
-    public async Task<bool> UpdateCharacterByIdAsync(EditCharacter request, int ownerId)
+    public async Task<bool> UpdateCharacterByIdAsync(EditCharacter request)
     {
 
         //could use User context later to match _userId with ownerId
         CharacterEntity? entity = await _dbContext.Characters
             .FirstOrDefaultAsync(e =>
-                e.Id == request.Id && e.OwnerId == ownerId
+                e.Id == request.Id && e.OwnerId == _userId
             );
 
         if (entity?.OwnerId != request.OwnerId)
@@ -223,11 +223,11 @@ public class CharacterService : ICharacterService
 
     }
 
-    public async Task<bool> DeleteCharacterAsync(int ownerId, int characterId)
+    public async Task<bool> DeleteCharacterAsync(int characterId)
     {
         var characterEntity = await _dbContext.Characters.FindAsync(characterId);
 
-        if (characterEntity?.OwnerId != ownerId)
+        if (characterEntity?.OwnerId != _userId)
             return false;
 
         _dbContext.Characters.Remove(characterEntity);

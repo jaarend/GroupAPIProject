@@ -31,7 +31,7 @@ namespace GroupApiProject.WebApi.Controllers
         [HttpGet("/api/Character/{ownerId:int}/{characterId:int}")]
         public async Task<IActionResult> GetCharacterById(int ownerId, int characterId)
         {
-            var character = await _characterService.GetCharacterByIdAsync(characterId, ownerId);
+            var character = await _characterService.GetCharacterByIdAsync(characterId);
             return Ok(character);
         }
 
@@ -65,15 +65,15 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpPut("/api/Character/{ownerId:int}")]
-        public async Task<IActionResult> UpdateCharacterByIdAsync ([FromBody] EditCharacter model, int ownerId)
+        [HttpPut("/api/Character/")]
+        public async Task<IActionResult> UpdateCharacterByIdAsync ([FromBody] EditCharacter model)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var registerResult = await _characterService.UpdateCharacterByIdAsync(model, ownerId);
+            var registerResult = await _characterService.UpdateCharacterByIdAsync(model);
             if(registerResult == true)
             {
                 var TextResponse = "Character has been updated!";
@@ -108,10 +108,10 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete("/api/Character/{ownerId:int}/{characterId:int}")]
-        public async Task<IActionResult> DeleteCharacterAsync(int ownerId, int characterId)
+        [HttpDelete("/api/Character/{characterId:int}")]
+        public async Task<IActionResult> DeleteCharacterAsync(int characterId)
         {
-            return await _characterService.DeleteCharacterAsync(ownerId,characterId)
+            return await _characterService.DeleteCharacterAsync(characterId)
                 ? Ok($"Character {characterId} was deleted successfully.")
                 : BadRequest($"Note {characterId} was not deleted.");
         }

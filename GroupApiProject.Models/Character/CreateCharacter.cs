@@ -26,6 +26,6 @@ public class CreateCharacter
 
     public int Ap = 10;
 
-    public int OwnerId { get; set; }
+    // public int OwnerId { get; set; } dont need this with tokens
 
 }
