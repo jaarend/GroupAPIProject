@@ -94,12 +94,18 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Trying to call the webapi with javascript
+
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 
 app.UseHttpsRedirection();
 
