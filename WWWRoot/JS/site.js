@@ -1,10 +1,5 @@
 const uri = 'https://localhost:7124/api/attack';
-let todos = [];
-let input1 = document.querySelector('add-name');
-let input2 = document.querySelector('add-description');
-let input3 = document.querySelector('add-type');
-let input4 = document.querySelector('add-hitvalue');
-let input5 = document.querySelector('add-apcost');
+
 const button = document.querySelector('#post')
 
 function addItem() {
@@ -13,12 +8,17 @@ function addItem() {
     const addTypeTextbox = document.getElementById('add-type');
     const addHitValueTextbox = document.getElementById('add-hitvalue');
     const addAPCostTextbox = document.getElementById('add-apcost');
+    
+    const type = parseInt(addTypeTextbox.value, 10);
+    const hitvalue = parseInt(addHitValueTextbox.value, 10);
+    const apcost = parseInt(addAPCostTextbox.value, 10);
+    
     const item = {
         name: addNameTextbox.value.trim(),
         description: addDescriptionTextbox.value.trim(),
-        type: addTypeTextbox.value.trim(),
-        hitvalue: addHitValueTextbox.value.trim(),
-        apcost: addAPCostTextbox.value.trim(),
+        type: type,
+        hitvalue: hitvalue,
+        apcost: apcost,
       };
     
       fetch(uri, {
@@ -34,10 +34,7 @@ function addItem() {
 
           console.log('Received data from the server.', data);
 
-          console.log('Id: ', data.Id);
-          console.log('Name: ', data.Name);
-
-          getItems();
+          // getItems(); this needs to be built out
           addNameTextbox.value = '';
           addDescriptionTextbox.value = '';
           addTypeTextbox.value = '';

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using GroupApiProject.Services.AttackServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,8 @@ builder.Services.AddScoped<ICharacterService, CharacterService>();
 builder.Services.AddScoped<IRaceService, RaceService>();
 //gear service
 builder.Services.AddScoped<IGearService, GearService>();
+//attack service
+builder.Services.AddScoped<IAttackService, AttackService>();
 
 //adding the configure settings
 builder.Services.AddCors(options =>
