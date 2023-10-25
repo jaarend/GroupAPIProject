@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using GroupApiProject.Services.AttackServices;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,12 @@ builder.Services.AddScoped<IRaceService, RaceService>();
 builder.Services.AddScoped<IGearService, GearService>();
 //attack service
 builder.Services.AddScoped<IAttackService, AttackService>();
+
+
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole(); // You can add other logging providers as needed
+});
 
 //adding the configure settings
 builder.Services.AddCors(options =>
