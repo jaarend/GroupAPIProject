@@ -29,7 +29,7 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [HttpGet("/api/Character/{ownerId:int}/{characterId:int}")]
-        public async Task<IActionResult> GetCharacterById(int ownerId, int characterId)
+        public async Task<IActionResult> GetCharacterById(int characterId)
         {
             var character = await _characterService.GetCharacterByIdAsync(characterId);
             return Ok(character);
@@ -80,36 +80,12 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpPut("/api/UpdateCharacterRace/{characterId:int}/{raceId:int}")]
-        public async Task<bool> UpdateRaceStatsOfNewCharacter(int characterId, int raceId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCharacterAsync([FromBody] DeleteCharacter character)
         {
-            var registerFinalResult = await _characterService.UpdateRaceStatsOfNewCharacter(characterId, raceId);
-            if(registerFinalResult == true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        [Authorize]
-        [HttpPut("/api/UpdateCharacterArmor/{characterId:int}/{classId:int}")]
-        public async Task<bool> UpdateArmorStatsOfNewCharacter(int characterId, int classId)
-        {
-            var registerFinalResult = await _characterService.UpdateArmorStatsOfNewCharacter(characterId, classId);
-            if(registerFinalResult == true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        [Authorize]
-        [HttpDelete("/api/Character/{characterId:int}")]
-        public async Task<IActionResult> DeleteCharacterAsync(int characterId)
-        {
-            return await _characterService.DeleteCharacterAsync(characterId)
-                ? Ok($"Character {characterId} was deleted successfully.")
-                : BadRequest($"Note {characterId} was not deleted.");
+            return await _characterService.DeleteCharacterAsync(character)
+                ? Ok($"Character {character.Id} was deleted successfully.")
+                : BadRequest($"Note {character.Id} was not deleted.");
         }
     }
 }

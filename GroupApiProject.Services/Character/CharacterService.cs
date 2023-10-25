@@ -229,9 +229,9 @@ public class CharacterService : ICharacterService
 
     }
 
-    public async Task<bool> DeleteCharacterAsync(int characterId)
+    public async Task<bool> DeleteCharacterAsync(DeleteCharacter character)
     {
-        var characterEntity = await _dbContext.Characters.FindAsync(characterId);
+        var characterEntity = await _dbContext.Characters.FindAsync(character.Id);
 
         if (characterEntity?.OwnerId != _userId)
             return false;
