@@ -14,7 +14,7 @@ namespace GroupApiProject.WebApi.Controllers
             _raceService = raceService;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> CreateRace([FromBody] RaceCreate request)
         {
             if (!ModelState.IsValid)
@@ -27,21 +27,21 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
         public async Task<IActionResult> GetAllRaces()
         {
             var races = await _raceService.GetAllRacesAsync();
             return races is not null ? Ok(races) : NotFound();
         }
 
-        [HttpGet("get/{raceId:int}")]
+        [HttpGet("{raceId:int}")]
         public async Task<IActionResult> GetRaceById([FromRoute] int raceId)
         {
             RaceDetail? request = await _raceService.GetRaceByIdAsync(raceId);
             return request is not null ? Ok(request) : NotFound();
         }
 
-        [HttpPut("update")]
+        [HttpPut]
         public async Task<IActionResult> UpdateRaceById([FromBody] RaceUpdate request)
         {
             if (ModelState.IsValid)
@@ -53,7 +53,7 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteRace([FromBody] RaceDelete raceId)
         {
             return await _raceService.DeleteRaceAsync(raceId)
