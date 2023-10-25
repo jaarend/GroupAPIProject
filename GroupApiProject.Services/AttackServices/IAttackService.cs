@@ -12,6 +12,6 @@ namespace GroupApiProject.Services.AttackServices
         Task<IEnumerable<AttackListItem>> GetAllAttacksAsync();
         Task<AttackDetail?> GetAttackByIdAsync(int attackId);
         Task<bool> UpdateAttackAsync(AttackUpdate request);
-        Task<bool> DeleteAttackAsync(int attackId);
+        Task<bool> DeleteAttackAsync(AttackDelete attackId);
     }
 }

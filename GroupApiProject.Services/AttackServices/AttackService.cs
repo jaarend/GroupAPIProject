@@ -90,9 +90,9 @@ namespace GroupApiProject.Services.AttackServices
             int numberOfChanges = await _context.SaveChangesAsync();
             return numberOfChanges == 1;
         }
-        public async Task<bool> DeleteAttackAsync(int attackId)
+        public async Task<bool> DeleteAttackAsync(AttackDelete attackId)
         {
-            var attackEntity = await _context.Attacks.FindAsync(attackId);
+            var attackEntity = await _context.Attacks.FindAsync(attackId.Id);
             if (attackEntity == null)
                 return false;
 
