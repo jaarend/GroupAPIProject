@@ -7,6 +7,6 @@ namespace GroupApiProject.Models.Gear
 {
     public class GearDelete
     {
-        
+        public int Id { get; set; }
     }
 }
