@@ -44,6 +44,7 @@ namespace GroupApiProject.WebApi.Controllers
             var registerResult = await _userService.RegisterUserAsync(model);
             if(registerResult)
             {
+                // var user = await _tokenService
                 return Ok(new TextResponse("User was registered."));
             }
 
