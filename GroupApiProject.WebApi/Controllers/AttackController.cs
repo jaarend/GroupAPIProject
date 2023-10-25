@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GroupApiProject.Models.Attack;
 using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.AttackServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroupApiProject.WebApi.Controllers
@@ -18,6 +19,8 @@ namespace GroupApiProject.WebApi.Controllers
         {
             _attackService = attackService;
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAttack([FromBody] AttackCreate request)
         {
@@ -39,6 +42,8 @@ namespace GroupApiProject.WebApi.Controllers
                 ? Ok(detail)
                 : NotFound();
         }
+
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateAttackById([FromBody] AttackUpdate request)
         {
@@ -49,6 +54,8 @@ namespace GroupApiProject.WebApi.Controllers
                 ? Ok("Attack updated.")
                 : BadRequest("Request Failed.");
         }
+
+        [Authorize]
         [HttpDelete("{attackId:int}")]
         public async Task<IActionResult> DeleteAttack([FromBody] AttackDelete attackId)
         {
