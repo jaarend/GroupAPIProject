@@ -12,6 +12,6 @@ namespace GroupApiProject.Services.AttackTypeServices
         Task<IEnumerable<AttackTypeListItem>> GetAllAttackTypesAsync();
         Task<AttackTypeDetail?> GetAttackTypeByIdAsync(int attackTypeId);
         Task<bool> UpdateAttackTypeAsync(AttackTypeUpdate request);
-        Task<bool> DeleteAttackTypeAsync(int attackTypeId);
+        Task<bool> DeleteAttackTypeAsync(AttackTypeDelete attackTypeId);
     }
 }

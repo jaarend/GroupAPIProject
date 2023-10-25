@@ -54,7 +54,7 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [HttpDelete("{classId:int}")]
-        public async Task<IActionResult> DeleteClass([FromRoute] int classId)
+        public async Task<IActionResult> DeleteClass([FromBody] ClassDelete classId)
         {
             return await _classService.DeleteClassAsync(classId)
                 ? Ok($"Class {classId} was Deleted.")

@@ -50,7 +50,7 @@ namespace GroupApiProject.WebApi.Controllers
                 : BadRequest("Request Failed.");
         }
         [HttpDelete("{attackTypeId:int}")]
-        public async Task<IActionResult> DeleteAttackType([FromRoute] int attackTypeId)
+        public async Task<IActionResult> DeleteAttackType([FromBody] AttackTypeDelete attackTypeId)
         {
             return await _attackTypeService.DeleteAttackTypeAsync(attackTypeId)
                 ? Ok($"Attack Type {attackTypeId} was Deleted.")

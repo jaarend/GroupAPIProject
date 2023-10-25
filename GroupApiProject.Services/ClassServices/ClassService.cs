@@ -102,10 +102,10 @@ namespace GroupApiProject.Services.ClassServices
             return numberOfChanges == 1;
         }
 
-        public async Task<bool> DeleteClassAsync(int classId)
+        public async Task<bool> DeleteClassAsync(ClassDelete classId)
         {
-            var classEntity = await _context.Classes.FindAsync(classId);
-            if (classEntity == null)
+            var classEntity = await _context.Classes.FindAsync(classId.Id);
+            if (classEntity is null)
             return false;
 
             _context.Classes.Remove(classEntity);
