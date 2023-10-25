@@ -3,8 +3,11 @@ using System.Security.Claims;
 using System.Text;
 using GroupApiProject.Data.Entities;
 using GroupApiProject.Models.Token;
+using GroupApiProject.Services.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GroupApiProject.Services.Token
@@ -12,12 +15,20 @@ namespace GroupApiProject.Services.Token
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
+        private readonly IUserService _userService;
         private readonly UserManager<UserEntity> _userManager;
 
-        public TokenService(IConfiguration configuration, UserManager<UserEntity> userManager)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private readonly ILogger<TokenService> _logger;
+
+        public TokenService(IConfiguration configuration, UserManager<UserEntity> userManager, IUserService userService, IHttpContextAccessor httpContextAccessor, ILogger<TokenService> logger)
         {
             _configuration = configuration;
             _userManager = userManager;
+            _userService = userService;
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public async Task<TokenResponse?> GetTokenAsync(TokenRequest model)
@@ -30,7 +41,7 @@ namespace GroupApiProject.Services.Token
             return await GenerateTokenAsync(entity);
         }
 
-        private async Task<TokenResponse> GenerateTokenAsync(UserEntity entity)
+        public async Task<TokenResponse> GenerateTokenAsync(UserEntity entity)
         {
             List<Claim> claims = await GetUserClaimsAsync(entity);
             SecurityTokenDescriptor tokenDescriptor = GetTokenDescriptor(claims);
@@ -45,6 +56,8 @@ namespace GroupApiProject.Services.Token
                 IssuedAt = token.ValidFrom,
                 Expires = token.ValidTo
             };
+
+            SetJwtTokenInCookie(response.Token);
 
             return response;
         }
@@ -84,13 +97,27 @@ namespace GroupApiProject.Services.Token
             var userEntity = await _userManager.FindByNameAsync(model.UserName);
 
             if (userEntity is null)
-                return null;
+                {_logger.LogWarning("User not found for username: {model.UserName}", model.UserName);
+                return null;}
 
-            var isValidPassword = await _userManager.CheckPasswordAsync(userEntity,model.Password);
+
+            var isValidPassword = await _userManager.CheckPasswordAsync(userEntity, model.Password);
             if (isValidPassword == false)
-                return null;
+                {_logger.LogWarning("Password not found for username: {model.UserName}", model.UserName);
+                return null;}
 
             return userEntity;
+        }
+
+        private async Task SetJwtTokenInCookie(string token)
+        {
+            var options = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+            };
+
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("jwtToken", token, options);
         }
     }
 }

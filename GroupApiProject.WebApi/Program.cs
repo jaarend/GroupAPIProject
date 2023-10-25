@@ -12,7 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using GroupApiProject.Services.AttackServices;
+using Microsoft.Extensions.Logging;
 using GroupApiProject.Services.AttackTypeServices;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,8 +44,29 @@ builder.Services.AddScoped<IRaceService, RaceService>();
 builder.Services.AddScoped<IGearService, GearService>();
 //attack service
 builder.Services.AddScoped<IAttackService, AttackService>();
+
+
+
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole(); // You can add other logging providers as needed
+});
+
+//adding the configure settings
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("MyPolicy", builder =>
+        {
+            builder
+                .WithOrigins("http://127.0.0.1:5500")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+    });
+
 //attacktype service
 builder.Services.AddScoped<IAttackTypeService, AttackTypeService>();
+
 
 // adding for token authentication
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -103,9 +126,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
@@ -113,6 +140,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("MyPolicy");
 
 app.MapControllers();
 
