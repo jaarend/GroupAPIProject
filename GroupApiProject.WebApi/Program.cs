@@ -39,6 +39,18 @@ builder.Services.AddScoped<IRaceService, RaceService>();
 //gear service
 builder.Services.AddScoped<IGearService, GearService>();
 
+//adding the configure settings
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("MyPolicy", builder =>
+        {
+            builder
+                .WithOrigins("http://127.0.0.1:5500")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+    });
+
 // adding for token authentication
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -101,6 +113,8 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseDefaultFiles();
@@ -113,6 +127,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("MyPolicy");
 
 app.MapControllers();
 

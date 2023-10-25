@@ -14,7 +14,6 @@ function addItem() {
     const addHitValueTextbox = document.getElementById('add-hitvalue');
     const addAPCostTextbox = document.getElementById('add-apcost');
     const item = {
-        isComplete: false,
         name: addNameTextbox.value.trim(),
         description: addDescriptionTextbox.value.trim(),
         type: addTypeTextbox.value.trim(),
@@ -24,17 +23,20 @@ function addItem() {
     
       fetch(uri, {
         method: 'POST',
+        mode: 'cors',
         headers: {
-          'name': 'application/json',
-          'description': 'application/json',
-          'type': 'application/json',
-          'hitvalue': 'application/json',
-          'apcost': 'application/json',
+          'Content-Type' : 'application/json',
         },
         body: JSON.stringify(item)
       })
         .then(response => response.json())
-        .then(() => {
+        .then(data => {
+
+          console.log('Received data from the server.', data);
+
+          console.log('Id: ', data.Id);
+          console.log('Name: ', data.Name);
+
           getItems();
           addNameTextbox.value = '';
           addDescriptionTextbox.value = '';

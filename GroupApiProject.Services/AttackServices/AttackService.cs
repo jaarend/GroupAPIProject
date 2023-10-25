@@ -27,7 +27,8 @@ namespace GroupApiProject.Services.AttackServices
                 Description = request.Description,
                 Type = request.Type,
                 HitValue = request.HitValue,
-                APCost = request.APCost
+                APCost = request.APCost,
+                DateCreated = DateTime.Now
             };
             _context.Attacks.Add(entity);
             var numberOfChanges = await _context.SaveChangesAsync();
