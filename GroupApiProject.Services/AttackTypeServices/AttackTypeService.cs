@@ -33,7 +33,7 @@ namespace GroupApiProject.Services.AttackTypeServices
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                DateCreated = entity.DateCreated
+                DateCreated = DateTime.Now
             };
             return response;
         }
@@ -74,9 +74,9 @@ namespace GroupApiProject.Services.AttackTypeServices
             int numberOfChanges = await _context.SaveChangesAsync();
             return numberOfChanges == 1;
         }
-        public async Task<bool> DeleteAttackTypeAsync(int attackTypeId)
+        public async Task<bool> DeleteAttackTypeAsync(AttackTypeDelete attackTypeId)
         {
-            var attackTypeEntity = await _context.AttackTypes.FindAsync(attackTypeId);
+            var attackTypeEntity = await _context.AttackTypes.FindAsync(attackTypeId.Id);
             if (attackTypeEntity == null)
                 return false;
 

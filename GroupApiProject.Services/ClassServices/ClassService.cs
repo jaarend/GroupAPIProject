@@ -28,7 +28,8 @@ namespace GroupApiProject.Services.ClassServices
             AttackSlot_1 = request.AttackSlot_1,
             AttackSlot_2 = request.AttackSlot_2,
             WeaponId = request.WeaponId,
-            ArmorId = request.ArmorId
+            ArmorId = request.ArmorId,
+            DateCreated = DateTime.Now
         };
 
         _context.Classes.Add(entity);
@@ -80,7 +81,7 @@ namespace GroupApiProject.Services.ClassServices
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                CreatedUtc = entity.DateCreated,
+                DateCreated = entity.DateCreated,
             };
         }
         public async Task<bool> UpdateClassAsync(ClassUpdate request)
@@ -101,10 +102,10 @@ namespace GroupApiProject.Services.ClassServices
             return numberOfChanges == 1;
         }
 
-        public async Task<bool> DeleteClassAsync(int classId)
+        public async Task<bool> DeleteClassAsync(ClassDelete classId)
         {
-            var classEntity = await _context.Classes.FindAsync(classId);
-            if (classEntity == null)
+            var classEntity = await _context.Classes.FindAsync(classId.Id);
+            if (classEntity is null)
             return false;
 
             _context.Classes.Remove(classEntity);

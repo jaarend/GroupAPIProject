@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GroupApiProject.Models.AttackType;
 using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.AttackTypeServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroupApiProject.WebApi.Controllers
@@ -18,6 +19,8 @@ namespace GroupApiProject.WebApi.Controllers
         {
             _attackTypeService = attackTypeService;
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAttackType([FromBody] AttackTypeCreate request)
         {
@@ -39,6 +42,8 @@ namespace GroupApiProject.WebApi.Controllers
                 ? Ok(detail)
                 : NotFound();
         }
+
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateAttackTypeById([FromBody] AttackTypeUpdate request)
         {
@@ -49,11 +54,13 @@ namespace GroupApiProject.WebApi.Controllers
                 ? Ok("Attack Type updated.")
                 : BadRequest("Request Failed.");
         }
-        [HttpDelete("{attackTypeId:int}")]
-        public async Task<IActionResult> DeleteAttackType([FromRoute] int attackTypeId)
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAttackTypeAsync([FromBody] AttackTypeDelete attackType)
         {
-            return await _attackTypeService.DeleteAttackTypeAsync(attackTypeId)
-                ? Ok($"Attack Type {attackTypeId} was Deleted.")
+            return await _attackTypeService.DeleteAttackTypeAsync(attackType)
+                ? Ok($"Attack Type {attackType} was Deleted.")
                 : BadRequest($"Delete Failed.");
         }
     }

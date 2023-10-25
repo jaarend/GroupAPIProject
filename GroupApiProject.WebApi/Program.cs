@@ -13,6 +13,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using GroupApiProject.Services.AttackServices;
 using Microsoft.Extensions.Logging;
+using GroupApiProject.Services.AttackTypeServices;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +46,7 @@ builder.Services.AddScoped<IGearService, GearService>();
 builder.Services.AddScoped<IAttackService, AttackService>();
 
 
+
 builder.Services.AddLogging(builder =>
 {
     builder.AddConsole(); // You can add other logging providers as needed
@@ -60,6 +63,10 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
     });
+
+//attacktype service
+builder.Services.AddScoped<IAttackTypeService, AttackTypeService>();
+
 
 // adding for token authentication
 builder.Services.AddScoped<ITokenService, TokenService>();

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GroupApiProject.Models.Class;
 using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.ClassServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroupApiProject.WebApi.Controllers
@@ -19,6 +20,8 @@ namespace GroupApiProject.WebApi.Controllers
         {
             _classService = classService;
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateClass([FromBody] ClassCreate request)
         {
@@ -42,6 +45,7 @@ namespace GroupApiProject.WebApi.Controllers
                 : NotFound();
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateClassById([FromBody] ClassUpdate request)
         {
@@ -53,11 +57,12 @@ namespace GroupApiProject.WebApi.Controllers
                 : BadRequest("Request Failed.");
         }
 
-        [HttpDelete("{classId:int}")]
-        public async Task<IActionResult> DeleteClass([FromRoute] int classId)
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteClassAsync([FromBody] ClassDelete Class)
         {
-            return await _classService.DeleteClassAsync(classId)
-                ? Ok($"Class {classId} was Deleted.")
+            return await _classService.DeleteClassAsync(Class)
+                ? Ok($"Class {Class} was Deleted.")
                 : BadRequest($"Delete Failed.");
         }
     }

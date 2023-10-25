@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GroupApiProject.Models.Gear
+namespace GroupApiProject.Models.Attack
 {
-    public class GearDelete
+    public class AttackDelete
     {
         public int Id { get; set; }
     }

@@ -13,6 +13,6 @@ namespace GroupApiProject.Services.ClassServices
         Task<IEnumerable<ClassListItem>> GetAllClassesAsync();
         Task<ClassDetail?> GetClassByIdAsync(int classId);
         Task<bool> UpdateClassAsync(ClassUpdate request);
-        Task<bool> DeleteClassAsync(int classId);
+        Task<bool> DeleteClassAsync(ClassDelete classId);
     }
 }

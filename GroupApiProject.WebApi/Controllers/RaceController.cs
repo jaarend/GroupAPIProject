@@ -1,5 +1,7 @@
 using GroupApiProject.Models.Race;
+using GroupApiProject.Models.Responses;
 using GroupApiProject.Services.Race;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroupApiProject.WebApi.Controllers
@@ -14,7 +16,8 @@ namespace GroupApiProject.WebApi.Controllers
             _raceService = raceService;
         }
 
-        [HttpPost("create")]
+        [Authorize]
+        [HttpPost]
         public async Task<IActionResult> CreateRace([FromBody] RaceCreate request)
         {
             if (!ModelState.IsValid)
@@ -24,41 +27,43 @@ namespace GroupApiProject.WebApi.Controllers
             if (response is not null)
                 return Ok(response);
 
-            return BadRequest();
+            return BadRequest(new TextResponse("Could not create Race."));
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
         public async Task<IActionResult> GetAllRaces()
         {
             var races = await _raceService.GetAllRacesAsync();
             return races is not null ? Ok(races) : NotFound();
         }
 
-        [HttpGet("get/{raceId:int}")]
+        [HttpGet("{raceId:int}")]
         public async Task<IActionResult> GetRaceById([FromRoute] int raceId)
         {
             RaceDetail? request = await _raceService.GetRaceByIdAsync(raceId);
             return request is not null ? Ok(request) : NotFound();
         }
 
-        [HttpPut("update")]
+        [Authorize]
+        [HttpPut]
         public async Task<IActionResult> UpdateRaceById([FromBody] RaceUpdate request)
         {
             if (ModelState.IsValid)
             {
                 return await _raceService.UpdateRaceAsync(request)
-                    ? Ok("Race updated successfully.")
-                    : BadRequest("Race could not be updated.");
+                    ? Ok(new TextResponse("Race updated successfully."))
+                    : BadRequest(new TextResponse("Race could not be updated."));
             }
             return BadRequest(ModelState);
         }
 
-        [HttpDelete("delete")]
+        [Authorize]
+        [HttpDelete]
         public async Task<IActionResult> DeleteRace([FromBody] RaceDelete raceId)
         {
             return await _raceService.DeleteRaceAsync(raceId)
-                ? Ok($"Race Id: {raceId} was deleted successfully.")
-                : BadRequest($"Note Id: {raceId} could not be deleted.");
+                ? Ok(new TextResponse("Race was deleted successfully."))
+                : BadRequest(new TextResponse("Race could not be deleted."));
         }
     }
 }
