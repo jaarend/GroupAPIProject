@@ -15,6 +15,6 @@ namespace GroupApiProject.Services.Character
 
         Task<ListCharacter?> GetCharacterByIdAsync(int characterId);
         Task<bool> UpdateCharacterByIdAsync(EditCharacter request);
-        Task<bool> DeleteCharacterAsync(int characterId);
+        Task<bool> DeleteCharacterAsync(DeleteCharacter character);
     }
 }
