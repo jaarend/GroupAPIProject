@@ -28,7 +28,7 @@ namespace GroupApiProject.WebApi.Controllers
             return Ok(characters);
         }
 
-        [HttpGet("/api/Character/{ownerId:int}/{characterId:int}")]
+        [HttpGet("/api/Character/{characterId:int}")]
         public async Task<IActionResult> GetCharacterById(int characterId)
         {
             var character = await _characterService.GetCharacterByIdAsync(characterId);
