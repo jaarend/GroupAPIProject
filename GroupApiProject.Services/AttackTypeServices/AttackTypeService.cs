@@ -33,7 +33,7 @@ namespace GroupApiProject.Services.AttackTypeServices
                 Id = entity.Id,
                 Name = entity.Name,
                 Description = entity.Description,
-                DateCreated = entity.DateCreated
+                DateCreated = DateTime.Now
             };
             return response;
         }
