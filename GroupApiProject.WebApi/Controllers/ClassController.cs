@@ -58,11 +58,11 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{classId:int}")]
-        public async Task<IActionResult> DeleteClass([FromBody] ClassDelete classId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteClassAsync([FromBody] ClassDelete Class)
         {
-            return await _classService.DeleteClassAsync(classId)
-                ? Ok($"Class {classId} was Deleted.")
+            return await _classService.DeleteClassAsync(Class)
+                ? Ok($"Class {Class} was Deleted.")
                 : BadRequest($"Delete Failed.");
         }
     }

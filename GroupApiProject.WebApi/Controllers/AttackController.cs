@@ -56,11 +56,11 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{attackId:int}")]
-        public async Task<IActionResult> DeleteAttack([FromBody] AttackDelete attackId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAttackAsync([FromBody] AttackDelete attack)
         {
-            return await _attackService.DeleteAttackAsync(attackId)
-                ? Ok($"Attack {attackId} was Deleted.")
+            return await _attackService.DeleteAttackAsync(attack)
+                ? Ok($"Attack {attack} was Deleted.")
                 : BadRequest($"Delete Failed.");
         }
     }

@@ -19,7 +19,7 @@ namespace GroupApiProject.WebApi.Controllers
         {
             _attackTypeService = attackTypeService;
         }
-        
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAttackType([FromBody] AttackTypeCreate request)
@@ -56,11 +56,11 @@ namespace GroupApiProject.WebApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{attackTypeId:int}")]
-        public async Task<IActionResult> DeleteAttackType([FromBody] AttackTypeDelete attackTypeId)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAttackTypeAsync([FromBody] AttackTypeDelete attackType)
         {
-            return await _attackTypeService.DeleteAttackTypeAsync(attackTypeId)
-                ? Ok($"Attack Type {attackTypeId} was Deleted.")
+            return await _attackTypeService.DeleteAttackTypeAsync(attackType)
+                ? Ok($"Attack Type {attackType} was Deleted.")
                 : BadRequest($"Delete Failed.");
         }
     }
