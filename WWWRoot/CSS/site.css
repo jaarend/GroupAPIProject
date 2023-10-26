@@ -1,7 +1,28 @@
 .contentWrapper{
-    margin: 0 auto;
+    margin: 75px auto 0;
     max-width: 1170px;
     padding: 0 3.0em;
+    text-align: left;
+}
+
+body {
+    background-color:rgb(105, 116, 105);
+    margin: 0;
+    text-align: center;
+}
+
+header{
+    background-color: rgb(87, 122, 106);
+    text-align: left; /* Align the header content to the left */
+    padding: .75rem 3rem; /* Adjust padding as needed */
+    border-bottom: solid 2px rgb(153, 153, 179);
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Vertically center align items */
+    
+}
+
+#header-left {
+    flex: 1;
 }
 
 input[type='submit'], button, [aria-label] {
@@ -30,7 +51,7 @@ td {
 
 nav{
     color: #000;
-    font-size: 1.7em;
+    font-size: 1.5em;
     letter-spacing: 0.04em;
     padding: 1.0em 1.0em 0.5em;
     margin: 1.0em 0;
@@ -53,7 +74,7 @@ nav li a, nav li a:visited{
 }
 
 nav#NavMenu{
-    float: right;
+    float: center;
     margin: -1.5em 0 0 0;
     padding: 0.35em;
     background-color: rgba(64,54,47,0.8);
