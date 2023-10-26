@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcane Anvil Character Creation</title>
+    <link rel="stylesheet" href="/WWWRoot/CSS/site.css" />
+
+</head>
+<body>
+    <header>
+        <div id="header-left">
+            <h1><a href="http://127.0.0.1:5500/WWWRoot/">Arcane Anvil</a></h1>
+        </div>
+        <nav id="NavMenu">
+            <ul>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
+                <li><a href="#">Races</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/class.html">Classes</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/gear.html">Gear</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/character.html">Character</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="contentWrapper">
+
+    <h1>Log In</h1>
+    <h3>Log In</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="logInUser()">
+        <input type="text" id="login-username" placeholder="UserName">
+        <input type="text" id="login-password" placeholder="Password">
+        <button type="submit" id="login-user">Submit</button>
+    </form>
+
+    <h1>Create Character</h1>
+    <h3>Create new character - MUST BE LOGGED IN</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="addNewCharacter()">
+        <input type="text" id="add-character-name" placeholder="Name">
+        <input type="text" id="add-character-description" placeholder="Description">
+        <input type="number" id="add-character-type" placeholder="Hero or Enemy">
+        <input type="number" id="add-character-raceId" placeholder="RaceId">
+        <input type="number" id="add-character-classId" placeholder="ClassId">
+        <button type="submit" id="post-character">Submit</button>
+    </form>
+
+    <h1>See All Your Characters</h1>
+    <h3>MUST BE LOGGED IN</h3>
+        <button type="submit" id="getall-character-loggedin">Submit</button>
+    <h1>Character List</h1>
+    <ul id="all-character-list">
+        <!-- Character list items will be added here -->
+    </ul>
+
+
+    <h1>Update Character</h1>
+    <h3>Update character - MUST BE LOGGED IN</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="updateCharacter()">
+        <input type="number" id="update-character-id" placeholder="Character Id">
+        <input type="text" id="update-character-name" placeholder="Name">
+        <input type="text" id="update-character-description" placeholder="Description">
+        <input type="number" id="update-character-type" placeholder="Hero or Enemy">
+        <button type="submit" id="update-character">Submit</button>
+    </form>
+
+    <h1>DELETE Character</h1>
+    <h3>DELETE character - MUST BE LOGGED IN - CANNOT BE UNDONE</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="updateCharacter()">
+        <input type="number" id="delete-character-id" placeholder="Character Id">
+        <button type="submit" id="delete-character">Submit</button>
+    </form>
+</div>
+    <script src="/WWWRoot/JS/character.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+</html>
