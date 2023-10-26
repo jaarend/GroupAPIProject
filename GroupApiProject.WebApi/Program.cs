@@ -137,11 +137,11 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 // added for token system
+app.UseCors("MyPolicy");
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors("MyPolicy");
 
 app.MapControllers();
 

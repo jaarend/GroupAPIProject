@@ -27,16 +27,14 @@
     </form>
 
     <h1>Create Character</h1>
-    <h3>Create new character</h3>
+    <h3>Create new character - MUST BE LOGGED IN</h3>
     <form action="javascript:void(0);" method="POST" onsubmit="addNewCharacter()">
-        <input type="text" id="add-name" placeholder="Name">
-        <input type="text" id="add-description" placeholder="Last Name">
-        <input type="number" id="add-type" placeholder="Hero or Enemy">
-        <input type="number" id="add-raceId" placeholder="RaceId">
-        <input type="number" id="add-" placeholder="UserRole">
-        <input type="text" id="add-password" placeholder="Password">
-        <input type="text" id="confirm-password" placeholder="Confirm Password">
-        <button type="submit" id="post-user">Submit</button>
+        <input type="text" id="add-character-name" placeholder="Name">
+        <input type="text" id="add-character-description" placeholder="Description">
+        <input type="number" id="add-character-type" placeholder="Hero or Enemy">
+        <input type="number" id="add-character-raceId" placeholder="RaceId">
+        <input type="number" id="add-character-classId" placeholder="ClassId">
+        <button type="submit" id="post-character">Submit</button>
     </form>
     
     <h1>Attacks</h1>

@@ -65,8 +65,8 @@ namespace GroupApiProject.WebApi.Controllers
 
             if(registerCreateResult is not null)
             {
-                var TextResponse = "Character is created!";
-                return Ok(TextResponse);
+                var TextResponse = $"Your {model.Name} is created!";
+                return Ok(new TextResponse (TextResponse));
             }
 
             return BadRequest(new TextResponse("Unable to create Character."));
