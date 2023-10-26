@@ -6,6 +6,9 @@ const uri_token = "https://localhost:7124/api/token";
 const buttonUser = document.querySelector("#post-user");
 const buttonLogInUser = document.querySelector("#login-user");
 const buttonNewCharacter = document.querySelector("#post-character");
+const buttonUpdateCharacter = document.querySelector("#update-character");
+const buttonDeleteCharacter = document.querySelector("#delete-character");
+const buttonGetAllCharactersLoggedIn = document.querySelector("#getall-character-loggedin");
 
 function addNewUser() {
   const addFirstNameTextbox = document.getElementById("add-firstname");
@@ -91,21 +94,6 @@ buttonLogInUser.addEventListener("click", function (e) {
   logInUser();
 });
 
-// function getCookie(name) {
-//   const cookieValue = document.cookie
-//     .split("; ")
-//     .find((row) => row.startsWith(`${name}=`));
-//     console.log("JWT value: ", cookieValue);
-
-//     if (cookieValue) {
-//       const value = cookieValue.split("=")[1];
-//       const decodedValue = decodeURIComponent(value); // Decode the cookie value if necessary
-//       return decodedValue;
-//     }
-
-//   return null;
-// }
-
 function addNewCharacter(token) {
   // const jwtToken = getCookie("jwtToken");
 
@@ -163,133 +151,104 @@ buttonNewCharacter.addEventListener("click", function (e) {
   addNewCharacter(token);
 });
 
-const buttonAttack = document.querySelector("#post-attack");
-
-function addAttackItem() {
-  const addNameTextbox = document.getElementById("add-name");
-  const addDescriptionTextbox = document.getElementById("add-description");
-  const addTypeTextbox = document.getElementById("add-type");
-  const addHitValueTextbox = document.getElementById("add-hitvalue");
-  const addAPCostTextbox = document.getElementById("add-apcost");
-
-  const type = parseInt(addTypeTextbox.value, 10);
-  const hitvalue = parseInt(addHitValueTextbox.value, 10);
-  const apcost = parseInt(addAPCostTextbox.value, 10);
-
-  const item = {
-    name: addNameTextbox.value.trim(),
-    description: addDescriptionTextbox.value.trim(),
-    type: type,
-    hitvalue: hitvalue,
-    apcost: apcost,
-  };
-
-  fetch(uri_attack, {
-    method: "POST",
+function getAllCharactersLoggedIn(token) {
+  const characterList = document.getElementById("all-character-list");
+  fetch(uri_character, {
+    method: "GET",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(item),
+    body: JSON.stringify(),
   })
     .then((response) => response.json())
     .then((data) => {
       console.log("Received data from the server.", data);
+      characterList.innerHTML = "";
 
-      // getItems(); this needs to be built out
-      addNameTextbox.value = "";
-      addDescriptionTextbox.value = "";
-      addTypeTextbox.value = "";
-      addHitValueTextbox.value = "";
-      addAPCostTextbox.value = "";
+      // Iterate through the data and create li elements
+      for (const c of data)
+      {
+        const li = document.createElement("li");
+        li.innerHTML = c.name + " " + c.description + " " +  c.armor;
+        characterList.appendChild(li);
+      }
     })
-    .catch((error) => console.error("Unable to add item.", error));
+    .catch((error) => console.error("Unable to delete item.", error));
 }
-
-buttonAttack.addEventListener("click", function (e) {
+buttonGetAllCharactersLoggedIn.addEventListener("click", function (e) {
   e.preventDefault();
-  addAttackItem();
+  getAllCharactersLoggedIn(token);
 });
-const buttonAttackUpdate = document.querySelector("#put-attack");
-function changeAttackItem() {
-  const idOfUpdatedItem = document.getElementById("attack-id");
-  const changeNameTextbox = document.getElementById("change-name");
-  const changeDescriptionTextbox =
-    document.getElementById("change-description");
-  const changeTypeTextbox = document.getElementById("change-type");
-  const changeHitValueTextbox = document.getElementById("change-hitvalue");
-  const changeAPCostTextbox = document.getElementById("change-apcost");
-  const type = parseInt(changeTypeTextbox.value, 10);
-  const hitvalue = parseInt(changeHitValueTextbox.value, 10);
-  const apcost = parseInt(changeAPCostTextbox.value, 10);
-  const attackid = parseInt(idOfUpdatedItem.value, 10);
+
+function updateCharacter(token) {
+  const updateCharacterIdTextbox = document.getElementById("update-character-id");
+  const updateCharacterNameTextbox = document.getElementById("update-character-name");
+  const updateCharacterDescriptionTextbox = document.getElementById("update-character-description");
+  const updateCharacterTypeTextbox = document.getElementById("update-character-type");
+  
+  const Id = parseInt(updateCharacterIdTextbox.value, 10);
+  const Type = parseInt(updateCharacterTypeTextbox.value, 10);
+
   const item = {
-    id: attackid,
-    name: changeNameTextbox.value.trim(),
-    description: changeDescriptionTextbox.value.trim(),
-    type: type,
-    hitvalue: hitvalue,
-    apcost: apcost,
+    id: updateCharacterIdTextbox.value.trim(),
+    name: updateCharacterNameTextbox.value.trim(),
+    description: updateCharacterDescriptionTextbox.value.trim(),
+    type: Type,
   };
-  fetch(uri_attack, {
+
+  fetch(uri_character, {
     method: "PUT",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(item),
   })
     .then((response) => response.json())
     .then((data) => {
       console.log("Received data from the server.", data);
-      // getItems(); this needs to be built out
-      //idOfUpdatedItem.value = "";
-      changeNameTextbox.value = "";
-      changeDescriptionTextbox.value = "";
-      changeTypeTextbox.value = "";
-      changeHitValueTextbox.value = "";
-      changeAPCostTextbox.value = "";
     })
     .catch((error) => console.error("Unable to add item.", error));
+
 }
-buttonAttackUpdate.addEventListener("click", function (e) {
+
+buttonUpdateCharacter.addEventListener("click", function (e) {
   e.preventDefault();
-  changeAttackItem();
+  updateCharacter(token);
 });
-const buttonGetAllAttacks = document.querySelector("#get-attack");
-let attacksList = document.querySelector("ul");
-function getAllAttacks() {
-  fetch(uri_attack, {
-    method: "GET",
+
+function deleteCharacter(token) {
+  const updateCharacterIdTextbox = document.getElementById("delete-character-id");
+
+  
+  const Id = parseInt(updateCharacterIdTextbox.value, 10);
+
+  const item = {
+    id: Id,
+  };
+
+  fetch(uri_character, {
+    method: "DELETE",
     mode: "cors",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(item),
   })
     .then((response) => response.json())
     .then((data) => {
       console.log("Received data from the server.", data);
-      for (const a of data) {
-        let listItem = document.createElement("li");
-        listItem.innerText =
-          a.id +
-          ", " +
-          a.name +
-          ", " +
-          a.description +
-          ", " +
-          a.type +
-          ", " +
-          a.hitValue +
-          ", " +
-          a.apCost +
-          ", " +
-          a.dateCreated;
-        attacksList.appendChild(listItem);
-      }
-      // getItems();this needs to be built out
     })
-    .catch((error) => console.error("Unable to add item.", error));
+    .catch((error) => console.error("Unable to delete item.", error));
+
 }
-buttonAttackUpdate.addEventListener("click", function (e) {
+
+buttonDeleteCharacter.addEventListener("click", function (e) {
   e.preventDefault();
-  getAllAttacks();
+  deleteCharacter(token);
 });
+

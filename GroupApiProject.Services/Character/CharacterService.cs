@@ -263,13 +263,13 @@ public class CharacterService : ICharacterService
                 e.Id == request.Id && e.OwnerId == _userId
             );
 
-        if (entity?.OwnerId != request.OwnerId)
+        if (entity?.OwnerId != _userId)
             return false;
 
         entity.Name = request.Name;
         entity.Description = request.Description;
         entity.Type = request.Type;
-        entity.ClassId = request.ClassId;
+        // entity.ClassId = request.ClassId; dont want users to change classes
 
         int numberOfChanges = await _dbContext.SaveChangesAsync();
 

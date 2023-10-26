@@ -8,15 +8,4 @@ public class EditCharacter
 
     public int Type { get; set; }
 
-    public int? RaceId { get; set; } //should changing this reset their earned stats? XP
-
-    public int ClassId { get; set; }
-    public int Armor { get; set; }
-    public int Strength { get; set; }
-    public int Constitution { get; set; }
-    public int Intelligence { get; set; }
-
-    public int OwnerId { get; set; }
-
-
 }

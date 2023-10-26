@@ -36,8 +36,33 @@
         <input type="number" id="add-character-classId" placeholder="ClassId">
         <button type="submit" id="post-character">Submit</button>
     </form>
-    
 
+    <h1>See All Your Characters</h1>
+    <h3>MUST BE LOGGED IN</h3>
+        <button type="submit" id="getall-character-loggedin">Submit</button>
+    <h1>Character List</h1>
+    <ul id="all-character-list">
+        <!-- Character list items will be added here -->
+    </ul>
+
+
+    <h1>Update Character</h1>
+    <h3>Update character - MUST BE LOGGED IN</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="updateCharacter()">
+        <input type="number" id="update-character-id" placeholder="Character Id">
+        <input type="text" id="update-character-name" placeholder="Name">
+        <input type="text" id="update-character-description" placeholder="Description">
+        <input type="number" id="update-character-type" placeholder="Hero or Enemy">
+        <button type="submit" id="update-character">Submit</button>
+    </form>
+
+    <h1>DELETE Character</h1>
+    <h3>DELETE character - MUST BE LOGGED IN - CANNOT BE UNDONE</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="updateCharacter()">
+        <input type="number" id="delete-character-id" placeholder="Character Id">
+        <button type="submit" id="delete-character">Submit</button>
+    </form>
+        
     <script src="/WWWRoot/JS/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
     </script>
