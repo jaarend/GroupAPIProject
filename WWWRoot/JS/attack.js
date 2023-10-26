@@ -94,6 +94,8 @@ buttonAttackUpdate.addEventListener("click", function (e) {
   e.preventDefault();
   changeAttackItem();
 });
+
+
 const buttonGetAllAttacks = document.querySelector("#get-attack");
 let attacksList = document.querySelector("ul");
 function getAllAttacks() {
