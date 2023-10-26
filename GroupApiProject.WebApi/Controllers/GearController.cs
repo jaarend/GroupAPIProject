@@ -32,7 +32,7 @@ public class GearController : ControllerBase
         var gear = await _gearService.GetGearByIdAsync(gearId);
         return Ok(gear);
     }
-    [Authorize]
+    // [Authorize]
     [HttpPost]
     public async Task<IActionResult> GearCreate([FromBody] GearCreate model)
     {
@@ -43,12 +43,12 @@ public class GearController : ControllerBase
 
         var registerResult = await _gearService.CreateGearAsync(model);
         {
-            var TextResponse = "Gear is created!";
-            return Ok(TextResponse);
+            
+            return Ok(new TextResponse("Gear is created!"));
         }
 
     }
-    [Authorize]
+    // [Authorize]
     [HttpPut]
     public async Task<IActionResult> UpdateGearByIdAsync([FromBody] GearEdit request)
     {
@@ -63,7 +63,7 @@ public class GearController : ControllerBase
     }
 
 
-    [Authorize]
+    // [Authorize]
     [HttpDelete]
     public async Task<IActionResult> DeleteGearAsync([FromBody] GearDelete gearId)
     {
