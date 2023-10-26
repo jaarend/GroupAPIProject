@@ -84,8 +84,8 @@ namespace GroupApiProject.WebApi.Controllers
             var registerResult = await _characterService.UpdateCharacterByIdAsync(model);
             if(registerResult == true)
             {
-                var TextResponse = "Character has been updated!";
-                return Ok(TextResponse);
+                var TextResponse = $"{model.Name} has been updated!";
+                return Ok(new TextResponse (TextResponse));
             }
             
             return BadRequest();

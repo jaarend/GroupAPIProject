@@ -36,6 +36,16 @@
         <input type="number" id="add-character-classId" placeholder="ClassId">
         <button type="submit" id="post-character">Submit</button>
     </form>
+
+    <h1>Update Character</h1>
+    <h3>Update character - MUST BE LOGGED IN</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="updateCharacter()">
+        <input type="number" id="update-character-id" placeholder="Character Id">
+        <input type="text" id="update-character-name" placeholder="Name">
+        <input type="text" id="update-character-description" placeholder="Description">
+        <input type="number" id="update-character-type" placeholder="Hero or Enemy">
+        <button type="submit" id="update-character">Submit</button>
+    </form>
     
     <h1>Attacks</h1>
     <h3>Create new attack</h3>

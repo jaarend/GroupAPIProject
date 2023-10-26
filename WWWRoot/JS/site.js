@@ -6,6 +6,7 @@ const uri_token = "https://localhost:7124/api/token";
 const buttonUser = document.querySelector("#post-user");
 const buttonLogInUser = document.querySelector("#login-user");
 const buttonNewCharacter = document.querySelector("#post-character");
+const buttonUpdateCharacter = document.querySelector("#update-character");
 
 function addNewUser() {
   const addFirstNameTextbox = document.getElementById("add-firstname");
@@ -76,38 +77,20 @@ function logInUser() {
     },
     body: JSON.stringify(loginItem),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the token response, save it as a constant
-    if (data.token) {
-      token = data.token; //stores the token
-
-    }
-  })
-  .catch((error) => console.error("Unable to get token.", error));
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the token response, save it as a constant
+      if (data.token) {
+        token = data.token; //stores the token
+      }
+    })
+    .catch((error) => console.error("Unable to get token.", error));
 }
 
 buttonLogInUser.addEventListener("click", function (e) {
   e.preventDefault();
   logInUser();
 });
-
-
-// function getCookie(name) {
-//   const cookieValue = document.cookie
-//     .split("; ")
-//     .find((row) => row.startsWith(`${name}=`));
-//     console.log("JWT value: ", cookieValue);
-    
-    
-//     if (cookieValue) {
-//       const value = cookieValue.split("=")[1];
-//       const decodedValue = decodeURIComponent(value); // Decode the cookie value if necessary
-//       return decodedValue;
-//     }
-  
-//   return null;
-// }
 
 function addNewCharacter(token) {
   // const jwtToken = getCookie("jwtToken");
@@ -150,7 +133,7 @@ function addNewCharacter(token) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(item),
   })
@@ -164,6 +147,44 @@ function addNewCharacter(token) {
 buttonNewCharacter.addEventListener("click", function (e) {
   e.preventDefault();
   addNewCharacter(token);
+});
+
+function updateCharacter(token) {
+  const updateCharacterIdTextbox = document.getElementById("update-character-id");
+  const updateCharacterNameTextbox = document.getElementById("update-character-name");
+  const updateCharacterDescriptionTextbox = document.getElementById("update-character-description");
+  const updateCharacterTypeTextbox = document.getElementById("update-character-type");
+  
+  const Id = parseInt(updateCharacterIdTextbox.value, 10);
+  const Type = parseInt(updateCharacterTypeTextbox.value, 10);
+
+  const item = {
+    id: updateCharacterIdTextbox.value.trim(),
+    name: updateCharacterNameTextbox.value.trim(),
+    description: updateCharacterDescriptionTextbox.value.trim(),
+    type: Type,
+  };
+
+  fetch(uri_character, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(item),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received data from the server.", data);
+    })
+    .catch((error) => console.error("Unable to add item.", error));
+
+}
+
+buttonUpdateCharacter.addEventListener("click", function (e) {
+  e.preventDefault();
+  updateCharacter(token);
 });
 
 const buttonAttack = document.querySelector("#post-attack");
