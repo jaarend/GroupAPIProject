@@ -76,15 +76,14 @@ function logInUser() {
     },
     body: JSON.stringify(loginItem),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the token response, save it as a constant
-    if (data.token) {
-      token = data.token; //stores the token
-
-    }
-  })
-  .catch((error) => console.error("Unable to get token.", error));
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the token response, save it as a constant
+      if (data.token) {
+        token = data.token; //stores the token
+      }
+    })
+    .catch((error) => console.error("Unable to get token.", error));
 }
 
 buttonLogInUser.addEventListener("click", function (e) {
@@ -92,20 +91,18 @@ buttonLogInUser.addEventListener("click", function (e) {
   logInUser();
 });
 
-
 // function getCookie(name) {
 //   const cookieValue = document.cookie
 //     .split("; ")
 //     .find((row) => row.startsWith(`${name}=`));
 //     console.log("JWT value: ", cookieValue);
-    
-    
+
 //     if (cookieValue) {
 //       const value = cookieValue.split("=")[1];
 //       const decodedValue = decodeURIComponent(value); // Decode the cookie value if necessary
 //       return decodedValue;
 //     }
-  
+
 //   return null;
 // }
 
@@ -150,7 +147,7 @@ function addNewCharacter(token) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(item),
   })
@@ -212,4 +209,87 @@ function addAttackItem() {
 buttonAttack.addEventListener("click", function (e) {
   e.preventDefault();
   addAttackItem();
+});
+const buttonAttackUpdate = document.querySelector("#put-attack");
+function changeAttackItem() {
+  const idOfUpdatedItem = document.getElementById("attack-id");
+  const changeNameTextbox = document.getElementById("change-name");
+  const changeDescriptionTextbox =
+    document.getElementById("change-description");
+  const changeTypeTextbox = document.getElementById("change-type");
+  const changeHitValueTextbox = document.getElementById("change-hitvalue");
+  const changeAPCostTextbox = document.getElementById("change-apcost");
+  const type = parseInt(changeTypeTextbox.value, 10);
+  const hitvalue = parseInt(changeHitValueTextbox.value, 10);
+  const apcost = parseInt(changeAPCostTextbox.value, 10);
+  const attackid = parseInt(idOfUpdatedItem.value, 10);
+  const item = {
+    id: attackid,
+    name: changeNameTextbox.value.trim(),
+    description: changeDescriptionTextbox.value.trim(),
+    type: type,
+    hitvalue: hitvalue,
+    apcost: apcost,
+  };
+  fetch(uri_attack, {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(item),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received data from the server.", data);
+      // getItems(); this needs to be built out
+      //idOfUpdatedItem.value = "";
+      changeNameTextbox.value = "";
+      changeDescriptionTextbox.value = "";
+      changeTypeTextbox.value = "";
+      changeHitValueTextbox.value = "";
+      changeAPCostTextbox.value = "";
+    })
+    .catch((error) => console.error("Unable to add item.", error));
+}
+buttonAttackUpdate.addEventListener("click", function (e) {
+  e.preventDefault();
+  changeAttackItem();
+});
+const buttonGetAllAttacks = document.querySelector("#get-attack");
+let attacksList = document.querySelector("ul");
+function getAllAttacks() {
+  fetch(uri_attack, {
+    method: "GET",
+    mode: "cors",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received data from the server.", data);
+      for (const a of data) {
+        let listItem = document.createElement("li");
+        listItem.innerText =
+          a.id +
+          ", " +
+          a.name +
+          ", " +
+          a.description +
+          ", " +
+          a.type +
+          ", " +
+          a.hitValue +
+          ", " +
+          a.apCost +
+          ", " +
+          a.dateCreated;
+        attacksList.appendChild(listItem);
+      }
+      // getItems();this needs to be built out
+    })
+    .catch((error) => console.error("Unable to add item.", error));
+}
+buttonAttackUpdate.addEventListener("click", function (e) {
+  e.preventDefault();
+  getAllAttacks();
 });
