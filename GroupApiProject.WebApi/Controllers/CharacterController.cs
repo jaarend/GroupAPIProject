@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GroupApiProject.Models.Character;
 using GroupApiProject.Models.Responses;
+using GroupApiProject.Models.Token;
 using GroupApiProject.Services.Character;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -96,7 +97,7 @@ namespace GroupApiProject.WebApi.Controllers
         public async Task<IActionResult> DeleteCharacterAsync([FromBody] DeleteCharacter character)
         {
             return await _characterService.DeleteCharacterAsync(character)
-                ? Ok($"Character {character.Id} was deleted successfully.")
+                ? Ok(new TextResponse ($"Character ID {character.Id} was deleted successfully."))
                 : BadRequest($"Note {character.Id} was not deleted.");
         }
     }

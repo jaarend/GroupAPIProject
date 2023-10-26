@@ -7,6 +7,7 @@ const buttonUser = document.querySelector("#post-user");
 const buttonLogInUser = document.querySelector("#login-user");
 const buttonNewCharacter = document.querySelector("#post-character");
 const buttonUpdateCharacter = document.querySelector("#update-character");
+const buttonDeleteCharacter = document.querySelector("#delete-character");
 
 function addNewUser() {
   const addFirstNameTextbox = document.getElementById("add-firstname");
@@ -185,6 +186,38 @@ function updateCharacter(token) {
 buttonUpdateCharacter.addEventListener("click", function (e) {
   e.preventDefault();
   updateCharacter(token);
+});
+
+function deleteCharacter(token) {
+  const updateCharacterIdTextbox = document.getElementById("delete-character-id");
+
+  
+  const Id = parseInt(updateCharacterIdTextbox.value, 10);
+
+  const item = {
+    id: Id,
+  };
+
+  fetch(uri_character, {
+    method: "DELETE",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(item),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Received data from the server.", data);
+    })
+    .catch((error) => console.error("Unable to delete item.", error));
+
+}
+
+buttonDeleteCharacter.addEventListener("click", function (e) {
+  e.preventDefault();
+  deleteCharacter(token);
 });
 
 const buttonAttack = document.querySelector("#post-attack");
