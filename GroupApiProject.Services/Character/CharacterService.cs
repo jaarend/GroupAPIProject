@@ -24,8 +24,8 @@ public class CharacterService : ICharacterService
         var userIdClaim = userManager.GetUserId(currentUser);
         var hasValidClaim = int.TryParse(userIdClaim, out _userId);
 
-        if(hasValidClaim == false)
-            throw new Exception("Attempted to build character without an account Id");
+        // if(hasValidClaim == false)
+        //     throw new Exception("Attempted to build character without an account Id");
 
         _dbContext = dbContext;
     }
@@ -172,7 +172,32 @@ public class CharacterService : ICharacterService
                 Hp = entity.Hp,
                 Xp = entity.Xp,
                 Ap = entity.Ap,
-                OwnerId = _userId
+                OwnerId = entity.OwnerId
+            })
+            .ToListAsync();
+
+        return characters;
+    }
+    public async Task<IEnumerable<ListCharacter>> GetAllCharactersNoLoginAsync()
+    {
+        List<ListCharacter> characters = await _dbContext.Characters
+            .Select(entity => new ListCharacter
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Description = entity.Description,
+                Type = entity.Type,
+                RaceId = entity.RaceId,
+                ClassId = entity.ClassId,
+                Level = entity.Level,
+                Armor = entity.Armor,
+                Strength = entity.Strength,
+                Constitution = entity.Constitution,
+                Intelligence = entity.Intelligence,
+                Hp = entity.Hp,
+                Xp = entity.Xp,
+                Ap = entity.Ap,
+                OwnerId = entity.OwnerId
             })
             .ToListAsync();
 
@@ -185,6 +210,30 @@ public class CharacterService : ICharacterService
             .FirstOrDefaultAsync(e =>
                 e.Id == characterId && e.OwnerId == _userId
             );
+
+        return entity is null ? null : new ListCharacter
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Description = entity.Description,
+            Type = entity.Type,
+            RaceId = entity.RaceId,
+            ClassId = entity.ClassId,
+            Level = entity.Level,
+            Armor = entity.Armor,
+            Strength = entity.Strength,
+            Constitution = entity.Constitution,
+            Intelligence = entity.Intelligence,
+            Hp = entity.Hp,
+            Xp = entity.Xp,
+            Ap = entity.Ap
+        };
+    }
+    public async Task<ListCharacter?> GetCharacterByIdNoLoginAsync(int characterId)
+    {
+        CharacterEntity? entity = await _dbContext.Characters
+            .FirstOrDefaultAsync(e =>
+                e.Id == characterId);
 
         return entity is null ? null : new ListCharacter
         {

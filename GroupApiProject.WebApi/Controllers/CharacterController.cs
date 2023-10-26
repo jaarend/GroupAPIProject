@@ -27,11 +27,23 @@ namespace GroupApiProject.WebApi.Controllers
             var characters = await _characterService.GetAllCharactersAsync();
             return Ok(characters);
         }
+        [HttpGet("/api/Character/All/")]
+        public async Task<IActionResult> GetAllCharactersNoLoginAsync()
+        {
+            var characters = await _characterService.GetAllCharactersNoLoginAsync();
+            return Ok(characters);
+        }
 
         [HttpGet("/api/Character/{characterId:int}")]
         public async Task<IActionResult> GetCharacterById(int characterId)
         {
             var character = await _characterService.GetCharacterByIdAsync(characterId);
+            return Ok(character);
+        }
+        [HttpGet("/api/Character/Find/{characterId:int}")]
+        public async Task<IActionResult> GetCharacterByIdNoLoginAsync(int characterId)
+        {
+            var character = await _characterService.GetCharacterByIdNoLoginAsync(characterId);
             return Ok(character);
         }
 
