@@ -33,6 +33,13 @@ namespace GroupApiProject.WebApi.Controllers
 
             return BadRequest(new TextResponse("Could Not Create Attack Type"));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAttackTypes()
+        {
+            var attackTypes = await _attackTypeService.GetAllAttackTypesAsync();
+            return attackTypes is not null ? Ok(attackTypes) : NotFound();
+        }
+
         [HttpGet("{attackTypeId:int}")]
         public async Task<IActionResult> GetAttackTypeById([FromRoute] int attackTypeId)
         {

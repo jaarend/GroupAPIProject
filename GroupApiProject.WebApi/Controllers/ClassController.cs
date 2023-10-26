@@ -21,7 +21,7 @@ namespace GroupApiProject.WebApi.Controllers
             _classService = classService;
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateClass([FromBody] ClassCreate request)
         {
@@ -34,6 +34,12 @@ namespace GroupApiProject.WebApi.Controllers
 
             return BadRequest(new TextResponse("Could Not Create Class"));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllClasses()
+        {
+            var classes = await _classService.GetAllClassesAsync();
+            return classes is not null ? Ok(classes) : NotFound();
+        }
 
         [HttpGet("{classId:int}")]
         public async Task<IActionResult> GetClassById([FromRoute] int classId)
@@ -45,7 +51,7 @@ namespace GroupApiProject.WebApi.Controllers
                 : NotFound();
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateClassById([FromBody] ClassUpdate request)
         {
@@ -57,7 +63,7 @@ namespace GroupApiProject.WebApi.Controllers
                 : BadRequest("Request Failed.");
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteClassAsync([FromBody] ClassDelete Class)
         {
