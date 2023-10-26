@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Attacks</title>
+    <link rel="stylesheet" href="/WWWRoot/CSS/site.css" />
+</head>
+<body>
+    <h1>Attacks</h1>
+    <h3>Create new attack</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="addAttackItem()">
+        <input type="text" id="add-name" placeholder="New Name">
+        <input type="text" id="add-description" placeholder="New Description">
+        <input type="number" id="add-type" placeholder="New Type">
+        <input type="number" id="add-hitvalue" placeholder="New HitValue">
+        <input type="number" id="add-apcost" placeholder="New APCost">
+        <button type="submit" id="post-attack">Submit</button>
+    </form>
+    <h3>Update existing attack</h3>
+    <form action="javascript:void(0);" method="PUT" onsubmit="changeAttackItem()">
+        <input type="number" id="attack-id" placeholder="Id">
+        <input type="text" id="change-name" placeholder="New Name">
+        <input type="text" id="change-description" placeholder="New Description">
+        <input type="number" id="change-type" placeholder="New Type">
+        <input type="number" id="change-hitvalue" placeholder="New HitValue">
+        <input type="number" id="change-apcost" placeholder="New APCost">
+        <button type="submit" id="put-attack">Submit</button>
+    </form>
+    <h3>Get existing attacks</h3>
+    <form action="javascript:void(0);" method="Get" onsubmit="getAllAttacks()">
+        <button type="submit" id="get-attack">Get All Attacks</button>
+    </form>
+    <P>Here will be all of the existing attacks</P>
+    <ul>
+        
+    </ul>
+
+    <script src="/WWWRoot/JS/attack.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+</html>

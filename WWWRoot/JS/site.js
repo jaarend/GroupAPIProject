@@ -251,3 +251,4 @@ buttonDeleteCharacter.addEventListener("click", function (e) {
   e.preventDefault();
   deleteCharacter(token);
 });
+

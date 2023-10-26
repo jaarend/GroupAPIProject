@@ -20,7 +20,7 @@ namespace GroupApiProject.WebApi.Controllers
             _attackService = attackService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAttack([FromBody] AttackCreate request)
         {
@@ -33,6 +33,14 @@ namespace GroupApiProject.WebApi.Controllers
 
             return BadRequest(new TextResponse("Could Not Create Attack"));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAttacks()
+        {
+            var attacks = await _attackService.GetAllAttacksAsync();
+            return attacks is not null ? Ok(attacks) : NotFound();
+        }
+
         [HttpGet("{attackId:int}")]
         public async Task<IActionResult> GetAttackById([FromRoute] int attackId)
         {
@@ -43,7 +51,7 @@ namespace GroupApiProject.WebApi.Controllers
                 : NotFound();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateAttackById([FromBody] AttackUpdate request)
         {
@@ -55,7 +63,7 @@ namespace GroupApiProject.WebApi.Controllers
                 : BadRequest("Request Failed.");
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteAttackAsync([FromBody] AttackDelete attack)
         {

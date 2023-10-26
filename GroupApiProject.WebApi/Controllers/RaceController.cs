@@ -16,7 +16,7 @@ namespace GroupApiProject.WebApi.Controllers
             _raceService = raceService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateRace([FromBody] RaceCreate request)
         {
@@ -44,7 +44,7 @@ namespace GroupApiProject.WebApi.Controllers
             return request is not null ? Ok(request) : NotFound();
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateRaceById([FromBody] RaceUpdate request)
         {
@@ -57,7 +57,7 @@ namespace GroupApiProject.WebApi.Controllers
             return BadRequest(ModelState);
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteRace([FromBody] RaceDelete raceId)
         {
