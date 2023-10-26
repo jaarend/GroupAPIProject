@@ -6,6 +6,19 @@
     <link rel="stylesheet" href="/WWWRoot/CSS/site.css" />
 </head>
 <body>
+    <div class="contentWrapper">
+    <header>
+        <nav id="NavMenu">
+            <h1><a href="http://127.0.0.1:5500/WWWRoot/">Arcane Anvil</a></h1>
+          <ul>
+            <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
+            <li><a href="#">Races</a></li>
+            <li><a href="#">Classes</a></li>
+            <li><a href="#">Gear</a></li>
+          </ul>
+        </nav>
+    </header>
+
     <h1>User Register</h1>
     <h3>Register as a User</h3>
     <form action="javascript:void(0);" method="POST" onsubmit="addNewUser()">
@@ -62,7 +75,7 @@
         <input type="number" id="delete-character-id" placeholder="Character Id">
         <button type="submit" id="delete-character">Submit</button>
     </form>
-        
+</div>
     <script src="/WWWRoot/JS/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
     </script>
