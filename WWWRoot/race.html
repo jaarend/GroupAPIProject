@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gear Page</title>
-    <link rel ="stylesheet" type="text/css" href="/WWWRoot/CSS/site.css">
+    <title>Attacks</title>
+    <link rel="stylesheet" href="/WWWRoot/CSS/site.css" />
 </head>
 <body>
     <header>
@@ -23,25 +22,19 @@
             </ul>
         </nav>
     </header>
-
-<div class="contentWrapper">
-  <h1>Gear</h1>
-  <h3>Create new gear for battle!</h3>
-  <form action="javascript:void(0);"method="Post" onsubmit="gearCreate()">
-    <input type="text" id="add-name" placeholder="New Gear Name">
-    <input type="text" id="add-description" placeholder="New Gear Description">
-    <input type="number" id="add-type" placeholder="Type of Gear">
-    <input type="number" id="add-value" placeholder="Gear Value">
-    <button type="submit" id="post-gear">Submit</button>
-</form>
+    <div class="contentWrapper">
+    <h1>Races</h1>
+    <h3>Get existing races</h3>
+    <form action="javascript:void(0);" method="Get" onsubmit="getAllRaces()">
+        <button type="submit" id="get-race">Get All Races</button>
+    </form>
+    <P>Here will be all of the existing races</P>
+    <ul id="all-race-list">
+        <!-- class list items will be added here -->
+    </ul>
 </div>
-<script src="/WWWRoot/JS/Gear.js" asp-append-version="true"></script>
+    <script src="/WWWRoot/JS/race.js" asp-append-version="true"></script>
     <script type="text/javascript">
     </script>
-        </div>
-    <div class="wrapper"></div>
-    <hr/>
-    <div class="background-one">
-    </div>
 </body>
 </html>

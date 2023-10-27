@@ -97,8 +97,8 @@ buttonAttackUpdate.addEventListener("click", function (e) {
 
 
 const buttonGetAllAttacks = document.querySelector("#get-attack");
-let attacksList = document.querySelector("ul");
 function getAllAttacks() {
+  const attacksList = document.getElementById("all-attack-list");
   fetch(uri_attack, {
     method: "GET",
     mode: "cors",
