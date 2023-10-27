@@ -35,12 +35,12 @@ namespace GroupApiProject.WebApi.Controllers
             return Ok(characters);
         }
 
-        [HttpGet("/api/Character/{characterId:int}")]
-        public async Task<IActionResult> GetCharacterById(int characterId)
-        {
-            var character = await _characterService.GetCharacterByIdAsync(characterId);
-            return Ok(character);
-        }
+        // [HttpGet("/api/Character/{characterId:int}")]
+        // public async Task<IActionResult> GetCharacterById(int characterId)
+        // {
+        //     var character = await _characterService.GetCharacterByIdAsync(characterId);
+        //     return Ok(character);
+        // }
         [HttpGet("/api/Character/Find/{characterId:int}")]
         public async Task<IActionResult> GetCharacterByIdNoLoginAsync(int characterId)
         {
