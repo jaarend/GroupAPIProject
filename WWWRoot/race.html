@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Arcane Anvil Race Page</title>
+    <link rel="stylesheet" href="/WWWRoot/CSS/site.css" />
+</head>
+<body>
+    <header>
+        <div id="header-left">
+            <a href="/WWWRoot/index.html">
+                <img src="/WWWRoot/assets/ArcaneAnvil-logo3.png" alt="" sizes="" srcset="">
+            </a>
+        </div>
+        <nav id="NavMenu">
+            <ul>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/race.html">Races</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/class.html">Classes</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/gear.html">Gear</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/character.html">Character</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="contentWrapper">
+    <h1>Races</h1>
+
+    <h2>Create new race</h2>
+    <form action="javascript:void(0);" method="POST" onsubmit="addNewRace()">
+        <input type="text" id="add-race-name" placeholder="Name">
+        <input type="text" id="add-race-description" placeholder="Description">
+        <input type="number" id="add-race-strengthModifier" placeholder="baseline strength">
+        <input type="number" id="add-race-constitutionModifier" placeholder="baseline constitution">
+        <input type="number" id="add-race-intelligenceModifier" placeholder="baseline intelligence">
+        <button type="submit" id="post-race">Submit</button>
+    </form>
+
+    <h2>Get existing races</h2>
+
+    <form action="javascript:void(0);" method="Get" onsubmit="getAllRaces()">
+        <button type="submit" id="get-race">Get All Races</button>
+    </form>
+
+    <ul id="all-race-list">
+        <!-- Race list items will be added here -->
+    </ul>
+
+    <h2>Get Race by Id</h2>
+    <form action="javascript:void(0);" method="get" onsubmit="getRacebyId()">
+        <input type="number" id="get-race-id" placeholder="Race Id">
+        <button type="submit" id="get-race-button">Submit</button>
+    </form>
+
+    <ul id="race-id-display">
+        <!-- Race Id lookup populates here-->
+    </ul>
+
+    <h2>Update Race</h2>
+    <form action="javascript:void(0);" method="put" onsubmit="updateRace()">
+        <input type="number" id="update-race-id" placeholder="Race Id">
+        <input type="text" id="update-race-name" placeholder="Name">
+        <input type="text" id="update-race-description" placeholder="Description">
+        <input type="number" id="update-race-strengthModifier" placeholder="updated strength">
+        <input type="number" id="update-race-constitutionModifier" placeholder="updated constitution">
+        <input type="number" id="update-race-intelligenceModifier" placeholder="updated intelligence">
+        <button type="submit" id="update-race">Submit</button>
+    </form>
+
+    <h2>Delete Race</h2>
+    <form action="javascript:void(0);" method="delete" onsubmit="deleteRace()">
+        <input type="number" id="delete-race-id" placeholder="Race Id">
+        <button type="submit" id="delete-race">Submit</button>
+    </form>
+
+</div>
+    <script src="/WWWRoot/JS/race.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+</html>

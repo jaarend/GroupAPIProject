@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Attacks</title>
+    <link rel="stylesheet" href="/WWWRoot/CSS/site.css" />
+</head>
+<body>
+    <header>
+        <div id="header-left">
+            <a href="/WWWRoot/index.html">
+                <img src="/WWWRoot/assets/ArcaneAnvil-logo3.png" alt="" sizes="" srcset="">
+            </a>
+        </div>
+        <nav id="NavMenu">
+            <ul>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/race.html">Races</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/class.html">Classes</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/gear.html">Gear</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/character.html">Character</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="contentWrapper">
+    <h1>Classes</h1>
+    <h3>Create new class</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="addClassItem()">
+        <input type="text" id="add-name" placeholder="Name">
+        <input type="text" id="add-description" placeholder="Description">
+        <input type="number" id="add-attackslot_1" placeholder="AttackId">
+        <input type="number" id="add-attackslot_2" placeholder="AttackId">
+        <input type="number" id="add-weaponid" placeholder="WeaponId">
+        <input type="number" id="add-armorid" placeholder="ArmorID">
+        <button type="submit" id="post-class">Submit</button>
+    </form>
+    <h3>Update existing class</h3>
+    <form action="javascript:void(0);" method="PUT" onsubmit="changeClassItem()">
+        <input type="number" id="class-id" placeholder="Id">
+        <input type="text" id="change-name" placeholder="New Name">
+        <input type="text" id="change-description" placeholder="New Description">
+        <input type="number" id="change-attackslot_1" placeholder="AttackId">
+        <input type="number" id="change-attackslot_2" placeholder="AttackId">
+        <input type="number" id="change-weaponid" placeholder="WeaponId">
+        <input type="number" id="change-armorid" placeholder="ArmorID">
+        <button type="submit" id="put-class">Submit</button>
+    </form>
+    <h3>Get existing attacks</h3>
+    <form action="javascript:void(0);" method="Get" onsubmit="getAllClasses()">
+        <button type="submit" id="get-class">Get All Classes</button>
+    </form>
+    <P>Here will be all of the existing classes</P>
+    <ul id="all-class-list">
+        <!-- class list items will be added here -->
+    </ul>
+</div>
+    <script src="/WWWRoot/JS/class.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+</html>

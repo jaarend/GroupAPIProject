@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gear Page</title>
+    <link rel ="stylesheet" type="text/css" href="/WWWRoot/CSS/site.css">
+</head>
+<body>
+    <header>
+        <div id="header-left">
+            <a href="/WWWRoot/index.html">
+                <img src="/WWWRoot/assets/ArcaneAnvil-logo3.png" alt="" sizes="" srcset="">
+            </a>
+        </div>
+        <nav id="NavMenu">
+            <ul>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/race.html">Races</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/class.html">Classes</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/gear.html">Gear</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/character.html">Character</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<div class="contentWrapper">
+  <h1>Gear</h1>
+  <h3>Create new gear for battle!</h3>
+  <form action="javascript:void(0);"method="Post" onsubmit="gearCreate()">
+    <input type="text" id="add-name" placeholder="New Gear Name">
+    <input type="text" id="add-description" placeholder="New Gear Description">
+    <input type="number" id="add-type" placeholder="Type of Gear">
+    <input type="number" id="add-value" placeholder="Gear Value">
+    <button type="submit" id="post-gear">Submit</button>
+</form>
+</div>
+<script src="/WWWRoot/JS/Gear.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+    </script>
+        </div>
+    <div class="wrapper"></div>
+    <hr/>
+    <div class="background-one">
+    </div>
+</body>
+</html>

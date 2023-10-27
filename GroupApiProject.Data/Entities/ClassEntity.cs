@@ -23,8 +23,13 @@ public class ClassEntity
     public int ArmorId { get; set; }
     public GearEntity? armorId { get; set; }
 
+    [ForeignKey(nameof(attackSlot_1))]
     public int AttackSlot_1 { get; set; }
+    public AttackEntity? attackSlot_1 { get; set; }
+
+    [ForeignKey(nameof(attackSlot_2))]
     public int AttackSlot_2 { get; set; }
+    public AttackEntity? attackSlot_2 { get; set; }
 
     [Required]
     public DateTime DateCreated { get; set; }
