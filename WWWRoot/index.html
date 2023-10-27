@@ -10,12 +10,14 @@
 <body>
     <header>
         <div id="header-left">
-            <h1><a href="http://127.0.0.1:5500/WWWRoot/">Arcane Anvil</a></h1>
+            <a href="/WWWRoot/index.html">
+                <img src="/WWWRoot/assets/ArcaneAnvil-logo3.png" alt="" sizes="" srcset="">
+            </a>
         </div>
         <nav id="NavMenu">
             <ul>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
-                <li><a href="#">Races</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/race.html">Races</a></li>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/class.html">Classes</a></li>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/gear.html">Gear</a></li>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/character.html">Character</a></li>
@@ -23,11 +25,15 @@
         </nav>
     </header>
     <div class="contentWrapper">
+    <div>
+        <h1>Welcome to the Arcane Anvil Character Creator!</h1>
+        <h4>This application will help users create a new character completely from scratch for an adventure role-playing game. It should make it easy for users to create and update not only a character, but brand new races, classes, and gear of their character(s) in an all-in-one app.</h4>
+        <p>To learn more, visit our <a href="https://github.com/jaarend/GroupAPIProject#readme">GitHub repository.</a></p>
+    </div>
 
-
-
-    <h1>User Register</h1>
-    <h3>Register as a User</h3>
+    
+    <h1>Start here:</h1>
+    <h2>Register as a User</h2>
     <form action="javascript:void(0);" method="POST" onsubmit="addNewUser()">
         <input type="text" id="add-firstname" placeholder="First Name">
         <input type="text" id="add-lastname" placeholder="Last Name">
@@ -38,7 +44,6 @@
         <input type="text" id="confirm-password" placeholder="Confirm Password">
         <button type="submit" id="post-user">Submit</button>
     </form>
-
 </div>
     <script src="/WWWRoot/JS/site.js" asp-append-version="true"></script>
     <script type="text/javascript">

@@ -8,18 +8,21 @@
 <body>
     <header>
         <div id="header-left">
-            <h1><a href="http://127.0.0.1:5500/WWWRoot/">Arcane Anvil</a></h1>
+            <a href="/WWWRoot/index.html">
+                <img src="/WWWRoot/assets/ArcaneAnvil-logo3.png" alt="" sizes="" srcset="">
+            </a>
         </div>
         <nav id="NavMenu">
             <ul>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/attack.html">Attacks</a></li>
-                <li><a href="#">Races</a></li>
+                <li><a href="http://127.0.0.1:5500/WWWRoot/race.html">Races</a></li>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/class.html">Classes</a></li>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/gear.html">Gear</a></li>
                 <li><a href="http://127.0.0.1:5500/WWWRoot/character.html">Character</a></li>
             </ul>
         </nav>
     </header>
+    <div class="contentWrapper">
     <h1>Attacks</h1>
     <h3>Create new attack</h3>
     <form action="javascript:void(0);" method="POST" onsubmit="addAttackItem()">
@@ -45,10 +48,10 @@
         <button type="submit" id="get-attack">Get All Attacks</button>
     </form>
     <P>Here will be all of the existing attacks</P>
-    <ul>
-        
+    <ul id="all-attack-list">
+        <!-- Attack list items will be added here -->
     </ul>
-
+</div>
     <script src="/WWWRoot/JS/attack.js" asp-append-version="true"></script>
     <script type="text/javascript">
     </script>

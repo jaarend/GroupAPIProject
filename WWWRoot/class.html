@@ -8,7 +8,9 @@
 <body>
     <header>
         <div id="header-left">
-            <h1><a href="http://127.0.0.1:5500/WWWRoot/">Arcane Anvil</a></h1>
+            <a href="/WWWRoot/index.html">
+                <img src="/WWWRoot/assets/ArcaneAnvil-logo3.png" alt="" sizes="" srcset="">
+            </a>
         </div>
         <nav id="NavMenu">
             <ul>
@@ -20,6 +22,7 @@
             </ul>
         </nav>
     </header>
+    <div class="contentWrapper">
     <h1>Classes</h1>
     <h3>Create new class</h3>
     <form action="javascript:void(0);" method="POST" onsubmit="addClassItem()">
@@ -47,10 +50,10 @@
         <button type="submit" id="get-class">Get All Classes</button>
     </form>
     <P>Here will be all of the existing classes</P>
-    <ul>
-        
+    <ul id="all-class-list">
+        <!-- class list items will be added here -->
     </ul>
-
+</div>
     <script src="/WWWRoot/JS/class.js" asp-append-version="true"></script>
     <script type="text/javascript">
     </script>

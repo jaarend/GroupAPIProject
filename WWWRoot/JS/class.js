@@ -104,8 +104,8 @@ buttonClassUpdate.addEventListener("click", function (e) {
 });
 
 const buttonGetAllClasses = document.querySelector("#get-class");
-let classesList = document.querySelector("ul");
 function getAllClasses() {
+  const classesList = document.getElementById("all-class-list");
   fetch(uri_class, {
     method: "GET",
     mode: "cors",
